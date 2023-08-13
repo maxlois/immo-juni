@@ -1,0 +1,37 @@
+
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
+    </div>
+    <div class="card-body">
+        {{ form_start(paysForm) }}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(paysForm.nomP) }}
+                    </div>
+                
+                </div>
+                <div class="col-md-4">{{ form_row(paysForm.langue) }}</div>
+                <div class="col-md-4">{{ form_row(paysForm.identifTel) }}</div>
+                <div class="col-md-4">{{ form_row(paysForm.codeIso) }}</div>
+                <div class="col-md-4"><button class="btn btn-primary" type="submit">Ajouter</button></div>
+            </div>
+        {{ form_end(paysForm) }}
+    </div>
+</div>
+ 
+
+    
+    
+	
+	
+
+    
+
+
+{% endblock %}
