@@ -1,0 +1,25 @@
+
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Formulaire Quartier</h6>
+    </div>
+    <div class="card-body">
+        {{ form_start(quartierForm) }}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(quartierForm.nomQuartier) }}</div></div>
+                <div class="col-md-4">{{ form_row(quartierForm.numRue) }}</div>
+                <div class="col-md-4">{{ form_row(quartierForm.codePost) }}</div>
+                <div class="col-md-4">{{ form_row(quartierForm.localQ) }}</div>
+                <div class="col-md-4">{{ form_row(quartierForm.ville) }}</div>
+                <div class="col-md-4"><button class="btn btn-primary" type="submit">Ajouter</button></div>
+            </div>
+        {{ form_end(quartierForm) }}
+    </div>
+
+    {% endblock %}

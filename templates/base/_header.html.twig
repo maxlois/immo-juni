@@ -10,7 +10,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Immo-juni-core</div>
+                <div class="sidebar-brand-text mx-3"> Administrateur</div>
             </a>
 
             <!-- Divider -->
@@ -40,8 +40,8 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">Gestionnaire de bien</a>
-                        <a class="collapse-item" href="cards.html">Propriétaire</a>
+                        <a class="collapse-item" href="{{path('super_admin_utilisateur_list')}}">Gestionnaire de bien</a>
+                        <a class="collapse-item" href="{{path('super_admin_utilisateur_list')}}">Propriétaire</a>
                     </div>
                 </div>
             </li>
@@ -58,7 +58,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{path('super_admin_pays_list')}}">Pays</a>
                         <a class="collapse-item" href="{{path('super_admin_ville_list')}}">Ville</a>
-                        <a class="collapse-item" href="cards.html">Quartier</a>
+                        <a class="collapse-item" href="{{path('super_admin_quartier_list')}}">Quartier</a>
                     </div>
                 </div>
             </li>
@@ -80,8 +80,8 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="login.html">Type Propriété</a>
-                        <a class="collapse-item" href="register.html">Propriété</a>
+                        <a class="collapse-item" href="{{path('super_admin_type_propriete_list')}}">Type Propriété</a>
+                        <a class="collapse-item" href="{{path('super_admin_propriete_list')}}">Propriété</a>
                         <div class="collapse-divider"></div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Recherche..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
@@ -310,9 +310,9 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{path('app_logout')}}" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Déconnexion
                                 </a>
                             </div>
                         </li>

@@ -19,7 +19,18 @@
     </head>
     <body>
     {% block header %}
+
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+
     {% include "Base/_header.html.twig" %}
+
+    {% else %}
+        
+        {% include "Base/_header2.html.twig" %}
+
+    {% endif %}
+    
+    
     {% endblock %}
         {% block body %}
 

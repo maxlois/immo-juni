@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Loyer{% endblock %}
+
+{% block body %}
+    <h1>Loyer</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ loyer.id }}</td>
+            </tr>
+            <tr>
+                <th>PrixLoyer</th>
+                <td>{{ loyer.prixLoyer }}</td>
+            </tr>
+            <tr>
+                <th>CoutL</th>
+                <td>{{ loyer.coutL }}</td>
+            </tr>
+            <tr>
+                <th>DateLoyer</th>
+                <td>{{ loyer.dateLoyer ? loyer.dateLoyer|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>TypePaie</th>
+                <td>{{ loyer.typePaie }}</td>
+            </tr>
+            <tr>
+                <th>StatutLoy</th>
+                <td>{{ loyer.statutLoy }}</td>
+            </tr>
+            <tr>
+                <th>MontLoy</th>
+                <td>{{ loyer.MontLoy }}</td>
+            </tr>
+            <tr>
+                <th>AppliPenal</th>
+                <td>{{ loyer.appliPenal }}</td>
+            </tr>
+            <tr>
+                <th>Mois</th>
+                <td>{{ loyer.mois }}</td>
+            </tr>
+            <tr>
+                <th>Annee</th>
+                <td>{{ loyer.annee }}</td>
+            </tr>
+            <tr>
+                <th>ModePaie</th>
+                <td>{{ loyer.modePaie }}</td>
+            </tr>
+            <tr>
+                <th>RefPaie</th>
+                <td>{{ loyer.refPaie }}</td>
+            </tr>
+            <tr>
+                <th>MontPaie</th>
+                <td>{{ loyer.montPaie }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_loyer_index') }}">back to list</a>
+
+    <a href="{{ path('app_loyer_edit', {'id': loyer.id}) }}">edit</a>
+
+    {{ include('loyer/_delete_form.html.twig') }}
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TypeProprieteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,14 @@ class TypePropriete
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $descTyp = null;
+
+    #[ORM\OneToMany(mappedBy: 'typePropriete', targetEntity: Propriete::class)]
+    private Collection $proprietes;
+
+    public function __construct()
+    {
+        $this->proprietes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +70,36 @@ class TypePropriete
     public function setDescTyp(string $descTyp): static
     {
         $this->descTyp = $descTyp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Propriete>
+     */
+    public function getProprietes(): Collection
+    {
+        return $this->proprietes;
+    }
+
+    public function addPropriete(Propriete $propriete): static
+    {
+        if (!$this->proprietes->contains($propriete)) {
+            $this->proprietes->add($propriete);
+            $propriete->setTypePropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removePropriete(Propriete $propriete): static
+    {
+        if ($this->proprietes->removeElement($propriete)) {
+            // set the owning side to null (unless already changed)
+            if ($propriete->getTypePropriete() === $this) {
+                $propriete->setTypePropriete(null);
+            }
+        }
 
         return $this;
     }

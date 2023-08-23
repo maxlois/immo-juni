@@ -1,0 +1,34 @@
+{% extends 'base/_fontC.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>S'inscrit</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.nom) }}
+        {{ form_row(registrationForm.prenom) }}
+        {{ form_row(registrationForm.dateNais) }}
+         {{ form_row(registrationForm.adress) }}
+        {{ form_row(registrationForm.tel) }}
+        {{ form_row(registrationForm.genre) }}
+        {{ form_row(registrationForm.nationalite) }}
+        {{ form_row(registrationForm.profession) }}
+        {{ form_row(registrationForm.tyPiece) }}
+        {{ form_row(registrationForm.numPiece) }}
+        {{ form_row(registrationForm.actCompte) }}
+        {{ form_row(registrationForm.verifCompte) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn btn-primary">S'enregistrer</button>
+    {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

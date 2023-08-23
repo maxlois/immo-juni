@@ -1,0 +1,37 @@
+
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Formulaire Propriété</h6>
+    </div>
+    <div class="card-body">
+        {{ form_start(proprieteForm) }}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(proprieteForm.nomPro) }}</div>
+                        </div>
+                <div class="col-md-4">{{ form_row(proprieteForm.superficie) }}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.longeur) }}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.largeur) }}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.hauteur) }}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.prixPro)}}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.proprietaire)}}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.gestionnaire)}}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.quartier)}}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.typePropriete)}}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.statut) }}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.photo) }}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.photo2) }}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.photo3) }}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.photo4) }}</div>
+                <div class="col-md-4">{{ form_row(proprieteForm.photo5) }}</div>
+                <div class="col-md-4"><button class="btn btn-primary" type="submit">Ajouter</button></div>
+            </div>
+        {{ form_end(proprieteForm) }}
+    </div>
+
+    {% endblock %}

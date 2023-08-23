@@ -48,6 +48,9 @@ class Propriete
     #[ORM\Column(length: 25)]
     private ?float $prixPro = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nomPro = null;
+
     #[ORM\ManyToOne(inversedBy: 'proprietes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $proprietaire = null;
@@ -62,6 +65,10 @@ class Propriete
 
     #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: Location::class)]
     private Collection $locations;
+
+    #[ORM\ManyToOne(inversedBy: 'proprietes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?TypePropriete $typePropriete = null;
 
     public function __construct()
     {
@@ -205,6 +212,19 @@ class Propriete
         return $this;
     }
 
+
+    public function getNomPro(): ?string
+    {
+        return $this->nomPro;
+    }
+
+    public function setNomPro(string $nomPro): static
+    {
+        $this->nomPro = $nomPro;
+
+        return $this;
+    }
+
     public function getProprietaire(): ?User
     {
         return $this->proprietaire;
@@ -270,4 +290,18 @@ class Propriete
 
         return $this;
     }
+
+    public function getTypePropriete(): ?TypePropriete
+    {
+        return $this->typePropriete;
+    }
+
+    public function setTypePropriete(?TypePropriete $typePropriete): static
+    {
+        $this->typePropriete = $typePropriete;
+
+        return $this;
+    }
+
+   
 }

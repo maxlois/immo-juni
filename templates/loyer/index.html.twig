@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Loyer index{% endblock %}
+
+{% block body %}
+    <h1>Loyer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PrixLoyer</th>
+                <th>CoutL</th>
+                <th>DateLoyer</th>
+                <th>TypePaie</th>
+                <th>StatutLoy</th>
+                <th>MontLoy</th>
+                <th>AppliPenal</th>
+                <th>Mois</th>
+                <th>Annee</th>
+                <th>ModePaie</th>
+                <th>RefPaie</th>
+                <th>MontPaie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for loyer in loyers %}
+            <tr>
+                <td>{{ loyer.id }}</td>
+                <td>{{ loyer.prixLoyer }}</td>
+                <td>{{ loyer.coutL }}</td>
+                <td>{{ loyer.dateLoyer ? loyer.dateLoyer|date('Y-m-d') : '' }}</td>
+                <td>{{ loyer.typePaie }}</td>
+                <td>{{ loyer.statutLoy }}</td>
+                <td>{{ loyer.MontLoy }}</td>
+                <td>{{ loyer.appliPenal }}</td>
+                <td>{{ loyer.mois }}</td>
+                <td>{{ loyer.annee }}</td>
+                <td>{{ loyer.modePaie }}</td>
+                <td>{{ loyer.refPaie }}</td>
+                <td>{{ loyer.montPaie }}</td>
+                <td>
+                    <a href="{{ path('app_loyer_show', {'id': loyer.id}) }}">show</a>
+                    <a href="{{ path('app_loyer_edit', {'id': loyer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_loyer_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Propriété{% endblock %}
+
+{% block body %}
+
+  <div class="container-fluid">
+ <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Propriété</h1>
+                    <p class="mb-4"><a target="_blank"
+                            href="https://datatables.net">official DataTables documentation</a>.</p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Liste des Propriété</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                                   <a href="{{path('super_admin_propriete_new')}}" class="btn btn-success btn-sm">Ajouter Propriété</a>
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nom Propriété</th>
+                                            <th>Dimenssion</th>
+                                            <th>Superficie en m2</th>
+                                            <th>Image1</th>
+                                            <th>Image2</th>
+                                             <th>Image3</th>
+                                            <th>Image4</th>
+                                             <th>Image5</th>
+                                            <th>Type de Propriété</th>
+                                            <th>Quartier</th>
+                                            <th>Gestionnaire</th>
+                                            <th>Proprietaire</th>
+                                            <th>Location</th>
+                                            <th>Modifier</th>
+                                            <th>Supprimer</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                           <th>Id</th>
+                                            <th>Nom Propriété</th>
+                                             <th>Superficie en m2</th>
+                                            <th>Dimenssion</th>
+                                            <th>Image1</th>
+                                            <th>Image2</th>
+                                             <th>Image3</th>
+                                            <th>Image4</th>
+                                            <th>Image5</th>
+                                            <th>Prix</th>
+                                            <th>Quartier</th>
+                                            <th>Gestionnaire</th>
+                                            <th>Proprietaire</th>
+                                            <th>type de Propriété</th>
+                                            <th>Modifier</th>
+                                            <th>Supprimer</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                     {% for propriete in propriete %}
+                                         <tr>
+                                            <td>{{propriete.id}}</td>
+                                            <td>{{propriete.nomPro}}</td> 
+                                            <td>{{propriete.superficie}}</td>
+                                            <td>{{propriete.statut}}</td>
+                                            <td>{{propriete.longeur}}</td>
+                                            <td><img src={require("./image.png")}/></td>
+                                            <td>{{propriete.photo2}}</td>
+                                            <td>{{propriete.photo3}}</td>
+                                            <td>{{propriete.photo4}}</td>
+                                            <td>{{propriete.photo5}}</td>
+                                            <td>{{propriete.prixPro}}</td>
+                                            <td>{{propriete.proprietaire}}</td>
+                                            <td>{{propriete.gestionnaire}}</td>
+                                            <td>{{propriete.quartier}}</td>
+                                            <td>{{propriete.typePropriete}}</td>
+                                            <td>
+                                           <a href="{{path('super_admin_propriete_edit', {id:propriete.id})}}" class="btn btn-info btn-sm">Modifier</a>  </td>
+                                          
+                                           <td><a href="{{path('super_admin_propriete_delete', {id:propriete.id})}}" class="btn btn-danger btn-sm">Supprimer</a></td>
+                                         
+
+                                        </tr>
+                                     {% endfor %}
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2023</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

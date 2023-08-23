@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -69,6 +71,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'gestionnaire', targetEntity: Propriete::class)]
     private Collection $proprieteGerees;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adress = null;
 
     public function __construct()
     {
@@ -194,12 +199,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getGenre(): ?string
+    public function getGenre(): ?bool
     {
         return $this->genre;
     }
 
-    public function setGenre(string $genre): static
+    public function setGenre(bool $genre): static
     {
         $this->genre = $genre;
 
@@ -254,24 +259,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getActCompte(): ?string
+    public function getActCompte(): ?Bool
     {
         return $this->actCompte;
     }
 
-    public function setActCompte(string $actCompte): static
+    public function setActCompte(Bool $actCompte): static
     {
         $this->actCompte = $actCompte;
 
         return $this;
     }
 
-    public function getVerifCompte(): ?string
+    public function getVerifCompte(): ?Bool
     {
         return $this->verifCompte;
     }
 
-    public function setVerifCompte(string $verifCompte): static
+    public function setVerifCompte(Bool $verifCompte): static
     {
         $this->verifCompte = $verifCompte;
 
@@ -334,6 +339,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $proprieteGeree->setGestionnaire(null);
             }
         }
+
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(string $adress): static
+    {
+        $this->adress = $adress;
 
         return $this;
     }
