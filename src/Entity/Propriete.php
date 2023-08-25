@@ -33,6 +33,9 @@ class Propriete
     #[ORM\Column(length: 25)]
     private ?float $prixPro = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nomPro = null;
+
     #[ORM\ManyToOne(inversedBy: 'proprietes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $proprietaire = null;
@@ -40,7 +43,7 @@ class Propriete
     #[ORM\ManyToOne(inversedBy: 'proprieteGerees')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $gestionnaire = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'proprietes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Quartier $quartier = null;
@@ -147,6 +150,19 @@ class Propriete
     public function setPrixPro(float $prixPro): static
     {
         $this->prixPro = $prixPro;
+
+        return $this;
+    }
+
+
+    public function getNomPro(): ?string
+    {
+        return $this->nomPro;
+    }
+
+    public function setNomPro(string $nomPro): static
+    {
+        $this->nomPro = $nomPro;
 
         return $this;
     }

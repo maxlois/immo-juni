@@ -16,16 +16,7 @@ class TypeProType extends AbstractType
     {
         $builder
 
-            ->add('nomTyPro', ChoiceType::class,[
-                'choices' =>[
-                    'villa' => 'Villa',
-                    'immeuble' => 'Immeuble',
-                ],
-                'attr' =>[
-                    'class'=>'form-control'
-                ], 
-                'label' => "Nom du type de Propriete"
-            ])
+         
             ->add('nombPiece', TextType::class,[
                 'attr' => [
                     'class' => "form-control"

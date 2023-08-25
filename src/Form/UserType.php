@@ -89,7 +89,8 @@ class UserType extends AbstractType
                     'class'=>"form-control"
                 ],
                     'widget' => 'choice',
-                    'input'  => 'datetime_immutable'
+                    'input'  => 'datetime_immutable',
+                    'label' => "Date de naissance"
                
             ])
             ->add('tel', NumberType::class,[
@@ -124,7 +125,13 @@ class UserType extends AbstractType
                 ],
                 'label' => "Profession"
             ])
-            ->add('tyPiece', TextType::class,[
+            ->add('tyPiece', ChoiceType::class,[
+                'choices'=>[
+                    'CNI'=>'cni',
+                    'Atestation'=> 'atestation',
+                    'Passport'=>'passport',
+                    'Carte de sejout'=> 'carte de sejour',
+                ],
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -143,7 +150,9 @@ class UserType extends AbstractType
                        'no' => false,
                         ],'attr' => [
                        'class' => "form-control"
-                   ], 
+                   ],
+                   
+                   'label' => "Activation de compte"
                   ])
                 
             ->add('verifComp', ChoiceType::class, [
@@ -152,7 +161,9 @@ class UserType extends AbstractType
                     'no' => false,
                     ],'attr' => [
                     'class' => "form-control"
-                ], 
+                ],
+                
+                'label' => "Vérification de compte"
                 ])
         ;
 
@@ -170,7 +181,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'attrRequired' => true
+             'attrRequired' => true
         ]);
     }
 

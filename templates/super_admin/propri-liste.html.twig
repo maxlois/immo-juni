@@ -20,73 +20,38 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 
                                    <a href="{{path('super_admin_propriete_new')}}" class="btn btn-success btn-sm">Ajouter Propriété</a>
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Nom Propriété</th>
-                                             <th>Superficie en m2</th>
-                                            <th>Longueur </th>
-                                            <th>Image</th>
-                                            <th>Prix</th>
-                                            <th>Propriétaire </th>
-                                            <th>Gestionnaire</th>
-                                            <th>Quartier</th>
-                                            <th>type Propriété </th>
-                                            <th>statut</th>
-                                            <th>Agis</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                     {% for propriete in propriete %}
-                                         <tr>
-                                            <td>{{propriete.id}}</td>
-                                            <td>{{propriete.nomPro}}</td> 
-                                            <td>{{propriete.superficie}}</td>
-                                            
-                                            <td>{{propriete.longeur}}</td> 
-                                            <td><img class="img-thumbnail" src="{{ propriete.imageFile ? asset(propriete.imageFile) : asset('/images/default-propriete.jpg') }}" /></td>
-                                            {#<td>{{propriete.photo2}}</td>
-                                            <td>{{propriete.photo3}}</td>
-                                            <td>{{propriete.photo4}}</td>
-                                            <td>{{propriete.photo5}}</td>#}
-                                            <td>{{propriete.prixPro}}</td>
-                                            <td>{{propriete.proprietaire}}</td>
-                                            <td>{{propriete.gestionnaire}}</td>
-                                            <td>{{propriete.quartier}}</td>
-                                            <td>{{propriete.typePropriete}}</td>
 
-                                            <td>{% if propriete.statut == true %}
-                                            <span class="badge badge-success">vérifié</span>
-                                            {% else %}
-                                            <span class="badge badge-danger">Non vérifié</span>
-                                            {% endif %}</td>
-                                            <td>
+                                              <div class="row">  
+                                              <div class=""></div>                            
+                                                {% for propriete in propriete %}
 
-                                           <a href="{{path('super_admin_propriete_edit', {id:propriete.id})}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>  
-                                          
-                                           <a href="{{path('super_admin_propriete_delete', {id:propriete.id})}}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a></td>
-                                         
-
-                                        </tr>
-                                     {% endfor %}
-                                       
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
+                                                                <div class="card" style="width: 18rem;">
+                                                <img src="{{ propriete.imageFile ? asset(propriete.imageFile) : asset('/images/default-propriete.jpg') }}" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{propriete.nomPro}}</h5>
+                                                    <p class="card-text">{{propriete.id}}</p>
+                                                    <p>{{propriete.superficie}}</p>
+                                                    <p>{{propriete.longeur}}</p>
+                                                    <p>{{propriete.prixPro}}</p>
+                                                    <p>{{propriete.proprietaire}}</p>
+                                                    <p>{{propriete.gestionnaire}}</p>
+                                                    <p>{{propriete.quartier}}</p>
+                                                    <p>{{propriete.quartier}}</p>
+                                                    <p>{{propriete.quartier}}</p>
+                                                    <p>{{propriete.typePropriete}}</p>
+                                                    <p>{% if propriete.statut == true %}
+                                                        <span class="badge badge-success">vérifié</span>
+                                                            {% else %}
+                                                        <span class="badge badge-danger">Non vérifié</span>
+                                                            {% endif %}</p>
+                                                    
+                                                        <a href="{{path('super_admin_propriete_edit', {id:propriete.id})}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>  
+                                                                                        
+                                                        <a href="{{path('super_admin_propriete_delete', {id:propriete.id})}}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                                </div>
+                                                </div>
+                                                {% endfor %}
+                                                </div>
                 <!-- /.container-fluid -->
 
             </div>
