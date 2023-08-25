@@ -28,6 +28,9 @@ class TypePropriete
     #[ORM\OneToMany(mappedBy: 'typePropriete', targetEntity: Propriete::class)]
     private Collection $proprietes;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nomTyPro = null;
+
     public function __construct()
     {
         $this->proprietes = new ArrayCollection();
@@ -102,5 +105,22 @@ class TypePropriete
         }
 
         return $this;
+    }
+
+    public function getNomTyPro(): ?string
+    {
+        return $this->nomTyPro;
+    }
+
+    public function setNomTyPro(string $nomTyPro): static
+    {
+        $this->nomTyPro = $nomTyPro;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+       return $this->nombPiece;
     }
 }

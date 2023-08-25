@@ -79,14 +79,8 @@
                                             <td>{{user.tyPiece}}</td>
                                             <td>{{user.numPiece}}</td>
                                               {% for role in user.roles %}
-                                            {% if role == "ROLE_SUPER_ADMIN" %}
-                                            {% set name = "Administrateur" %}
-                                            {% elseif role =="ROLE_GESTIONNAIRE" %}
-                                            {% set name = "Gestionnaire" %}
-                                            {% elseif role == "ROLE_PROPRIETAIRE" %}
+                                            {% if role == "ROLE_PROPRIETAIRE" %}
                                             {% set name = "Proprietaire" %}
-                                            {% else %}
-                                            {% set name = "Locataire" %}
                                                                                                     
                                             {% endif %}
                                                 

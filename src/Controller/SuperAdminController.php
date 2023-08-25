@@ -23,9 +23,11 @@ use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class SuperAdminController extends AbstractController
 {
@@ -55,10 +57,14 @@ class SuperAdminController extends AbstractController
     public function saveUtilisateur(User $user = null, Request $request,UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $em):Response
     {
         //creation d'utilisateur
-        if(!$user) $user =  new User();
+        $attrRequired = false ;
+        if(!$user){
+             $user =  new User();
+            $attrRequired = true;
+        }
 
         //ceation de formulaire
-        $userForm = $this->createForm(UserType::class, $user);
+        $userForm = $this->createForm(UserType::class, $user, ['attrRequired' => $attrRequired]);
 
         //Traitement de la requete du formulaire
         $userForm ->handleRequest($request);
@@ -336,19 +342,35 @@ class SuperAdminController extends AbstractController
  
      #[Route('/super_admin/propriete/new', name: 'super_admin_propriete_new')]
      #[Route('/super_admin/propriete/{id}/edit', name: 'super_admin_propriete_edit')]
-     public function savePropriete(Propriete $propriete = null, Request $request, EntityManagerInterface $em):Response
+     public function savePropriete(Propriete $propriete = null, Request $request, SluggerInterface $slugger, EntityManagerInterface $em):Response
      {
+        $attrRequired = false ;
          //creation propriete
-         if(!$propriete) $propriete =  new Propriete();
+         if(!$propriete){
+            $propriete =  new Propriete();
+            $attrRequired = true ;
+         }
  
          //ceation de formulaire
-         $proprieteForm = $this->createForm(ProprieteType::class, $propriete);
+         $proprieteForm = $this->createForm(ProprieteType::class, $propriete, ['attrRequired' => $attrRequired]);
  
          //Traitement de la requete du formulaire
          $proprieteForm ->handleRequest($request);
  
          //vérification du formulaire
          if( $proprieteForm->isSubmitted() && $proprieteForm->isValid()){
+
+            $imageFile = $proprieteForm->get('image')->getData();
+            $image2File = $proprieteForm->get('image2')->getData();
+            $image3File = $proprieteForm->get('image3')->getData();
+            $image4File = $proprieteForm->get('image4')->getData();
+            $image5File = $proprieteForm->get('image5')->getData();
+
+            if ($imageFile) $propriete->setimageFile($this->uploadFile($imageFile, $slugger));
+            if ($image2File) $propriete->setimage2File($this->uploadFile($image2File, $slugger));
+            if ($image3File) $propriete->setimage3File($this->uploadFile($image3File, $slugger));
+            if ($image4File) $propriete->setimage4File($this->uploadFile($image4File, $slugger));
+            if ($image5File) $propriete->setimage5File($this->uploadFile($image5File, $slugger));
              //$pays = $paysForm->getData();
              //stoker dans la base de donnée
              $em->persist($propriete);
@@ -375,4 +397,23 @@ class SuperAdminController extends AbstractController
       return $this->redirectToRoute('super_admin_propri_list');
      }
  
+     public function uploadFile($file, SluggerInterface $slugger)
+     {
+        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('upload_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+        return '/upload/' . $newFilename ;
+     }
 }

@@ -10,13 +10,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-          $pays = new Pays();
-          $pays-> setnom ('Ghana')
-          -> setlangue ('anglais')
-          -> setidentifTel ('+223')
-          -> setcodeIso ('GH');
-        
-          $manager->persist($utilsateur);
+         
 
         $manager->flush();
     }

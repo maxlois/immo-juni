@@ -20,15 +20,15 @@
     <body>
     {% block header %}
 
-    {% if is_granted('ROLE_SUPER_ADMIN') %}
+    {# {% if is_granted('ROLE_SUPER_ADMIN') %} #}
 
     {% include "Base/_header.html.twig" %}
 
-    {% else %}
+    {# {% else %} #}
         
-        {% include "Base/_header2.html.twig" %}
+        {# {% include "Base/_header2.html.twig" %}
 
-    {% endif %}
+    {% endif %} #}
     
     
     {% endblock %}

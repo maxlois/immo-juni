@@ -22,99 +22,82 @@
                                    <a href="{{path('super_admin_utilisateur_new')}}" class="btn btn-success btn-sm">Ajouter Utilisateur</a>
 
                                     <thead>
-                                        <tr>
-                                             <th>Id</th>
-                                            <th>Nom</th>
-                                            <th>Prenom</th>
-                                            <th>Data de Naissance</th>
-                                             <th>Adress</th>
-                                            <th>Numéro Téléphone</th>
-                                            <th>E-Mail</th>
-                                            <th>Genre</th>
-                                            <th>Nationalité</th>
-                                            <th>Proféssion</th>
-                                            <th>Type Pièce</th>
-                                            <th>Numéro Pièce</th>
-                                             <th>Rôle</th>
-                                            <th>Action</th>
-                                            <th>vérification</th>
+                                         <tr>
+                                           <th>ID</th>
+                                           <th>INFORMATIONS</th>
+                                           <th>CONTACTS</th>
+                                           <th>ROLES</th>
+                                           <th>ETAT</th>
+                                           <th>ACTIONS</th>
                                            
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                           <th>Id</th>
-                                            <th>Nom</th>
-                                            <th>Prenom</th>
-                                            <th>Data de Naissance</th>
-                                             <th>Adress</th>
-                                            <th>Numéro Téléphone</th>
-                                            <th>E-Mail</th>
-                                            <th>Genre</th>
-                                            <th>Nationalité</th>
-                                            <th>Proféssion</th>
-                                            <th>Type Pièce</th>
-                                            <th>Numéro Pièce</th>
-                                             <th>Rôle</th>
-                                            <th>Action</th>
-                                            <th>vérification</th>
-                                           
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                      
 
                                      {% for user in user %}
-                                         <tr>
-                                            <td>{{user.id}}</td>
-                                             <td>{{user.nom}}</td>
-                                            <td>{{user.prenom}}</td>
-                                            <td>{{user.dateNais|date("d/m/Y")}}</td>
-                                            <td>{{user.adress}}</td> 
-                                            <td>{{user.tel}}</td> 
-                                            <td>{{user.email}}</td>
-                                            <td>{{user.genre}}</td>
-                                            <td>{{user.nationalite}}</td>
-                                            <td>{{user.profession}}</td>
-                                            <td>{{user.tyPiece}}</td>
-                                            <td>{{user.numPiece}}</td>
-                                             <td> {% for role in user.roles %}
-                                            {% if role == "ROLE_SUPER_ADMIN" %}
-                                            {% set name = "Administrateur" %}
-                                            {% set color = "danger" %}
-                                            {% elseif role =="ROLE_GESTIONNAIRE" %}
-                                            {% set name = "Gestionnaire" %}
-                                            {% set color = "info" %}
-                                            {% elseif role == "ROLE_PROPRIETAIRE" %}
-                                            {% set name = "Proprietaire" %}
-                                            {% set color = "success" %}
-                                            {% else %}
-                                            {% set name = "Locataire" %}
-                                            {% set color = "warning" %}
-                                                                                                    
-                                            {% endif %}
-                                                <span class="badge bg-{{color}}">{{name}}</span>
-                                             {% endfor %}</td>
-                                            
-                                            <td> <a href="{{path('super_admin_utilisateur_edit', {id:user.id})}}" class="btn btn-info btn-sm">Modifier</a> 
-                                            {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                             <a href="{{path('super_admin_utilisateur_delete', {id:user.id})}}" class="btn btn-danger btn-sm">Supprimer</a>
-                                            {% endif %}
-                                             
-                                           
-                                            </td>
+                                        <tr>
+                                            <th>{{user.id}}</th>
                                             <td>
-                                            <div class="form-check form switch">
-                                             <input class="form-check-input" type="checkbox" role="switch" id="switch{{user.id}}" {{user.verifCompte ? "checked" : ""}} disabled>
-                                               <label class="form-check-label" for=" switch{{user.id}}"></label>
-                                               </div>
+                                               <p class="small mb-0"><b>Nom & prénoms :</b> {{user.nom}} {{user.prenom}}</p>
+                                               <p class="small mb-0"><b>Date de naissance :</b>{{user.dateNais|date("d/m/Y")}}</P>
+                                               <p class="small mb-0"><b>adress :</b>{{user.adress}}</P>
+                                               <p class="small mb-0"><b>E-mail :</b>{{user.email}}</P>
+                                               <p class="small mb-0"><b>Genre :</b>{{user.genre}}</P>
+                                               <p class="small mb-0"><b>nationalité :</b>{{user.nationalite}}</P>
+                                               <p class="small mb-0"><b>Profession :</b>{{user.profession}}</P>
+                                               <p class="small mb-0"><b>Type de pièce :</b>{{user.tyPiece}}</P>
+                                               <p class="small mb-0"><b>Numéro de pièce :</b>{{user.numPiece}}</P>
                                             </td>
-                                            
-                                          
-                                           
-                                         
+                                               <td>
+                                               <p class="small mb-0"><b>Numéro de téléphone :</b>{{user.tel}}</P>
+                                               </td>
 
-                                        </tr>
+                                                <td> 
+                                                
+                                                {% set name = 'user' %}
+                                                {% set color = 'yello' %}
+                                                 {% for role in user.roles %}
+                                                    {% if role == "ROLE_SUPER_ADMIN" %}
+                                                            {% set name = "Administrateur" %}
+                                                            {% set color = "danger" %}
+                                                        {% elseif role =="ROLE_GESTIONNAIRE" %}
+                                                            {% set name = "Gestionnaire" %}
+                                                            {% set color = "info" %}
+                                                        {% elseif role == "ROLE_PROPRIETAIRE" %}
+                                                            {% set name = "Proprietaire" %}
+                                                            {% set color = "success" %}
+                                                        {% elseif  role == "ROLE_LOCATAIRE" %}
+                                                            {% set name = "Locataire" %}
+                                                            {% set color = "warning" %}
+                                                                                                                        
+                                                        {% endif %}
+                                                {% endfor %}
+                                                <span class="badge badge-{{color}}">{{name}}</span>
+                                                </td>
+                                                <td>
+                                                    {% if user.verifComp == true %}
+                                                        <span class="badge badge-success">Vérifié</span>
+                                                    {% else %}
+                                                        <span class="badge badge-danger"> Non vérifié</span>
+                                                            
+                                                    {% endif %}
+
+
+                                                     {% if user.actCompt == true %}
+                                                        <span class="badge badge-success">Activé</span>
+                                                    {% else %}
+                                                        <span class="badge badge-danger"> Désactivé</span>
+                                                            
+                                                    {% endif %}
+                                                    
+                                                </td>
+                                                <td>
+                                                    <a href="{{path('super_admin_utilisateur_edit', {id:user.id})}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                                    <a href="{{path('super_admin_utilisateur_delete', {id:user.id})}}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                                </td>
+                                                
+                                         </tr>
                                      {% endfor %}
                                        
                                     </tbody>

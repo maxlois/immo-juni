@@ -30,26 +30,8 @@ class Propriete
     #[ORM\Column(length: 25)]
     private ?int $hauteur = null;
 
-    #[ORM\Column(length: 1)]
-    private ?string $photo = null;
-
-    #[ORM\Column(length: 1)]
-    private ?string $photo2 = null;
-
-    #[ORM\Column(length: 1)]
-    private ?string $photo3 = null;
-
-    #[ORM\Column(length: 1)]
-    private ?string $photo4 = null;
-
-    #[ORM\Column(length: 1)]
-    private ?string $photo5 = null;
-
     #[ORM\Column(length: 25)]
     private ?float $prixPro = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $nomPro = null;
 
     #[ORM\ManyToOne(inversedBy: 'proprietes')]
     #[ORM\JoinColumn(nullable: false)]
@@ -69,6 +51,21 @@ class Propriete
     #[ORM\ManyToOne(inversedBy: 'proprietes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?TypePropriete $typePropriete = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $imageFile;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image2File = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image3File = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image4File = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image5File = null;
 
     public function __construct()
     {
@@ -140,65 +137,7 @@ class Propriete
         return $this;
     }
 
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(string $photo): static
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    public function getPhoto2(): ?string
-    {
-        return $this->photo2;
-    }
-
-    public function setPhoto2(string $photo2): static
-    {
-        $this->photo2 = $photo2;
-
-        return $this;
-    }
-
-    public function getPhoto3(): ?string
-    {
-        return $this->photo3;
-    }
-
-    public function setPhoto3(string $photo3): static
-    {
-        $this->photo3 = $photo3;
-
-        return $this;
-    }
-
-    public function getPhoto4(): ?string
-    {
-        return $this->photo4;
-    }
-
-    public function setPhoto4(string $photo4): static
-    {
-        $this->photo4 = $photo4;
-
-        return $this;
-    }
-
-    public function getPhoto5(): ?string
-    {
-        return $this->photo5;
-    }
-
-    public function setPhoto5(string $photo5): static
-    {
-        $this->photo5 = $photo5;
-
-        return $this;
-    }
+   
 
     public function getPrixPro(): ?float
     {
@@ -208,19 +147,6 @@ class Propriete
     public function setPrixPro(float $prixPro): static
     {
         $this->prixPro = $prixPro;
-
-        return $this;
-    }
-
-
-    public function getNomPro(): ?string
-    {
-        return $this->nomPro;
-    }
-
-    public function setNomPro(string $nomPro): static
-    {
-        $this->nomPro = $nomPro;
 
         return $this;
     }
@@ -299,6 +225,66 @@ class Propriete
     public function setTypePropriete(?TypePropriete $typePropriete): static
     {
         $this->typePropriete = $typePropriete;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?string
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(string $imageFile): static
+    {
+        $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    public function getImage2File(): ?string
+    {
+        return $this->image2File;
+    }
+
+    public function setImage2File(string $image2File): static
+    {
+        $this->image2File = $image2File;
+
+        return $this;
+    }
+
+    public function getImage3File(): ?string
+    {
+        return $this->image3File;
+    }
+
+    public function setImage3File(string $image3File): static
+    {
+        $this->image3File = $image3File;
+
+        return $this;
+    }
+
+    public function getImage4File(): ?string
+    {
+        return $this->image4File;
+    }
+
+    public function setImage4File(string $image4File): static
+    {
+        $this->image4File = $image4File;
+
+        return $this;
+    }
+
+    public function getImage5File(): ?string
+    {
+        return $this->image5File;
+    }
+
+    public function setImage5File(string $image5File): static
+    {
+        $this->image5File = $image5File;
 
         return $this;
     }

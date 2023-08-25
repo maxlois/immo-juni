@@ -3,6 +3,7 @@
 
 {% block body %}
 
+{# <img src="{{ asset('/public/style/media/beautiful-decoration-desk.jpg') }}" alt="Ma Image" > #}
 <div class="container">
 
         <!-- Outer Row -->
@@ -19,18 +20,29 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-2">Bienvenue chez Immo-JUNI?</h1>
-                                        <p class="mb-4">We get it, stuff happens. Just enter your email address below
-                                            and we'll send you a link to reset your password!</p>
+                                        <p class="mb-4">notre application de gestion des loyers numérique ! 
+                                        Simplifiez vos transactions et profitez d'une expérience conviviale dès maintenant.</p>
                                     </div>
                                     <form class="user">
-                                        <div class="form-group">
+
+                                    <div class="container mt-2">
+                                    <div class="col-ms-6">
+                                        <div class="btn-toolbar ">
+                                        <div class="center">
+                                        <div class="btn-group btn-lg d-grid">
                                             <a href="{{path('app_register')}}" class="btn btn-primary btn-user btn-block">
                                             S'inscrire
                                              </a>
-                                        </div>
-                                        <a href="{{path('app_login')}}" class="btn btn-primary btn-user btn-block">
+                                             </div>
+                                          <div class="btn-group btn-lg ">
+                                        <a href="{{path('app_login')}}" class="btn btn-danger btn-user btn-block">
                                             Se Connecter
                                         </a>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
                                     </form>
                                     <hr>
                                 </div>

@@ -4,31 +4,96 @@
 
 {% block body %}
 
-<div class="container">
-    <h1>S'inscrit</h1>
-
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.prenom) }}
-        {{ form_row(registrationForm.dateNais) }}
-         {{ form_row(registrationForm.adress) }}
-        {{ form_row(registrationForm.tel) }}
-        {{ form_row(registrationForm.genre) }}
-        {{ form_row(registrationForm.nationalite) }}
-        {{ form_row(registrationForm.profession) }}
-        {{ form_row(registrationForm.tyPiece) }}
-        {{ form_row(registrationForm.numPiece) }}
-        {{ form_row(registrationForm.actCompte) }}
-        {{ form_row(registrationForm.verifCompte) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+       
 
-        <button type="submit" class="btn btn-primary">S'enregistrer</button>
-    {{ form_end(registrationForm) }}
+    <body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">S'inscrire!</h1>
+                            </div>
+                            <div class="user">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {{ form_row(registrationForm.email) }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{ form_row(registrationForm.nom) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                   {{ form_row(registrationForm.dateNais) }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                 {{ form_row(registrationForm.prenom) }}
+                                </div>
+                                    <div class="col-sm-6">
+                                       {{ form_row(registrationForm.adress) }}
+                                    </div>
+                                      <div class="col-sm-6">
+                                       {{ form_row(registrationForm.tel) }}
+                                    </div>
+                                      <div class="col-sm-6">
+                                        {{ form_row(registrationForm.genre) }}
+                                    </div>
+                                     <div class="col-sm-6">
+                                        {{ form_row(registrationForm.nationalite) }}
+                                    </div>
+                                     <div class="col-sm-6">
+                                       {{ form_row(registrationForm.profession) }}
+                                    </div>
+                                     <div class="col-sm-6">
+                                        {{ form_row(registrationForm.tyPiece) }}
+                                    </div>
+                                     <div class="col-sm-6">
+                                       {{ form_row(registrationForm.numPiece) }}
+                                    </div>
+                                     <div class="col-sm-6">
+                                       {{ form_row(registrationForm.roles) }}
+                                    </div>
+                                    {# <div class="col-sm-6">
+                                       {{ form_row(registrationForm.actCompte) }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                       {{ form_row(registrationForm.verifCompte) }}
+                                    </div> #}
+                                     <div class="col-sm-6">
+                                        {{ form_row(registrationForm.plainPassword, {
+                                                label: 'Password'
+                                            }) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                      {{ form_row(registrationForm.agreeTerms) }}
+                                    </div>
+                                    <div class="btn btn-user mx-auto"><button type="submit" class="btn btn-primary ">S'enregistrer</button></div>
+                                 
+                            
+                            </div>
+                             {{ form_end(registrationForm) }}
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="login.html">Déjà inscrire se Connecter!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     </div>
 {% endblock %}

@@ -17,7 +17,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher,
     EntityManagerInterface $entityManager): Response
     {
-        $user = new User();
+        $user = new User(); 
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -29,7 +29,8 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $user->setActCompt(false)->setVerifComp(false) ;
+            
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email

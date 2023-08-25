@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -42,7 +43,8 @@ class RegistrationFormType extends AbstractType
             ->add('dateNais', DateType::class,[
                 'widget' => 'choice',
                 'input'  => 'datetime_immutable',
-                'label'=>"Date de Naissance"
+                'label'=>"Date de Naissance",
+                'days' => range(1,31)
             ])
             ->add('tel', NumberType::class,[
                 'attr'=> [
@@ -89,23 +91,38 @@ class RegistrationFormType extends AbstractType
                 'label' => "Numéro de pièce"
             ])
 
-            ->add('actCompte' , ChoiceType::class, [
-                'choices'  => [
-                    'oui' => "Oui",
-                    'non' => "Non",
-                    ],'attr' => [
-                    'class' => "form-control"
-                ], 
+
+            // ->add('actCompt' , ChoiceType::class, [
+            //     'choices'  => [
+            //         'oui' => "Oui",
+            //         'non' => "Non",
+            //         ],'attr' => [
+            //         'class' => "form-control"
+            //     ], 
+            //     ])
+
+            //     ->add('verifComp', ChoiceType::class, [
+            //         'choices'  => [
+            //             'active' => "Activé",
+            //             'desactive' => "Desactivé",
+            //             ],'attr' => [
+            //             'class' => "form-control"
+            //         ], 
+            //         ])
+
+                ->add('roles', ChoiceType::class, [
+                   'choices'  => [
+                       'proprietaire' => "ROLE_PROPRIETAIRE",
+                      'gestionaire' => "ROLE_GESTIONNAIRE",
+                       'administrateur' => "ROLE_SUPER_ADMIN ",
+                        ],
+                        'attr' => [
+                            'class' => "form-control"
+                            ], 
+                   //'multiple'=> true,
+                    'label'=>"Rôle"
                 ])
-                
-            ->add('verifCompte', ChoiceType::class, [
-                'choices'  => [
-                    'active' => "Activé",
-                    'desactive' => "Desactivé",
-                    ],'attr' => [
-                    'class' => "form-control"
-                ],
-                ])
+
 
                 ->add('plainPassword', PasswordType::class, [
                     // instead of being set onto the object directly,
@@ -137,9 +154,16 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
                 'label' => "J'accepte tout"
-            ])
+            ]);
           
-        ;
+               $builder->get('roles')
+               ->addModelTransformer(new CallbackTransformer(function($arrayRoles){
+                   return count($arrayRoles) ? $arrayRoles[0] : null;
+               },
+               function($rolesString){
+                   return[$rolesString];
+               }
+           ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

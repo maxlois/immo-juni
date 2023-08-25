@@ -30,7 +30,7 @@ class QuartierType extends AbstractType
                 ], 
                 'label' => "Numero Rue"
             ])
-            ->add('codePost', TextareaType::class,[
+            ->add('codePost', TextType::class,[
                 'attr' => [
                     'class' => "form-control"
                 ], 

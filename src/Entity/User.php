@@ -60,12 +60,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 25)]
     private ?string $numPiece = null;
 
-    #[ORM\Column(length: 25)]
-    private ?string $actCompte = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $verifCompte = null;
-
     #[ORM\OneToMany(mappedBy: 'proprietaire', targetEntity: Propriete::class)]
     private Collection $proprietes;
 
@@ -74,6 +68,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $adress = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $verifComp = false;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $actCompt = false;
 
     public function __construct()
     {
@@ -199,12 +199,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getGenre(): ?bool
+    public function getGenre(): ?string
     {
         return $this->genre;
     }
 
-    public function setGenre(bool $genre): static
+    public function setGenre(string $genre): static
     {
         $this->genre = $genre;
 
@@ -255,30 +255,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNumPiece(string $numPiece): static
     {
         $this->numPiece = $numPiece;
-
-        return $this;
-    }
-
-    public function getActCompte(): ?Bool
-    {
-        return $this->actCompte;
-    }
-
-    public function setActCompte(Bool $actCompte): static
-    {
-        $this->actCompte = $actCompte;
-
-        return $this;
-    }
-
-    public function getVerifCompte(): ?Bool
-    {
-        return $this->verifCompte;
-    }
-
-    public function setVerifCompte(Bool $verifCompte): static
-    {
-        $this->verifCompte = $verifCompte;
 
         return $this;
     }
@@ -357,6 +333,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdress(string $adress): static
     {
         $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function isVerifComp(): ?bool
+    {
+        return $this->verifComp;
+    }
+
+    public function setVerifComp(?bool $verifComp): static
+    {
+        $this->verifComp = $verifComp;
+
+        return $this;
+    }
+
+    public function isActCompt(): ?bool
+    {
+        return $this->actCompt;
+    }
+
+    public function setActCompt(?bool $actCompt): static
+    {
+        $this->actCompt = $actCompt;
 
         return $this;
     }

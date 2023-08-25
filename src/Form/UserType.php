@@ -49,6 +49,7 @@ class UserType extends AbstractType
                 ])
 
             ->add('password', RepeatedType::class, [
+                'required' => $options['attrRequired'],
                 'type' => PasswordType::class,
                 'first_options' => [
                     'attr' => [
@@ -68,7 +69,7 @@ class UserType extends AbstractType
                         'class' => 'form-label  mt-4'
                     ]
                 ],
-                'invalid_message' => 'Les mots de passe ne correspondent pas.'
+                'invalid_message' => 'Les mots de passe est invalide.'
             ]
             )
             ->add('nom', TextType::class, [
@@ -84,6 +85,9 @@ class UserType extends AbstractType
                 'label'=>"Prenom"
             ])
             ->add('dateNais', DateType::class,[
+                'attr'=> [
+                    'class'=>"form-control"
+                ],
                     'widget' => 'choice',
                     'input'  => 'datetime_immutable'
                
@@ -96,8 +100,11 @@ class UserType extends AbstractType
             ])
             ->add('genre', ChoiceType::class, [
                 'choices' => [
-                    'Feminin' => 1,
-                    'Masculin' => 2,
+                    'Feminin' => "Feminin",
+                    'Masculin' => "Masculin",
+                ],
+                'attr'=> [
+                    'class'=>"form-control"
                 ],
                 'choice_attr' => [
                     'Feminin' => [ 'Feminin'],
@@ -130,19 +137,19 @@ class UserType extends AbstractType
                 'label' => "Numéro de pièce"
             ])
 
-            ->add('actCompte' , ChoiceType::class, [
-                'choices'  => [
-                    'oui' => "Oui",
-                    'non' => "Non",
-                    ],'attr' => [
-                    'class' => "form-control"
-                ], 
-                ])
+               ->add('actCompt' , ChoiceType::class, [
+                     'choices'  => [
+                       'yes' => true,
+                       'no' => false,
+                        ],'attr' => [
+                       'class' => "form-control"
+                   ], 
+                  ])
                 
-            ->add('verifCompte', ChoiceType::class, [
+            ->add('verifComp', ChoiceType::class, [
                 'choices'  => [
-                    'active' => "Activé",
-                    'desactive' => "Desactivé",
+                    'yes' => true,
+                    'no' => false,
                     ],'attr' => [
                     'class' => "form-control"
                 ], 
@@ -163,6 +170,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'attrRequired' => true
         ]);
     }
 
