@@ -16,14 +16,6 @@ class TypeProType extends AbstractType
     {
         $builder
 
-         
-            ->add('nombPiece', TextType::class,[
-                'attr' => [
-                    'class' => "form-control"
-                ], 
-                'label' => "Nombre de pièce"
-            ])
-
            
             ->add('typeBase', ChoiceType::class, [
                 'choices'  => [
@@ -39,6 +31,12 @@ class TypeProType extends AbstractType
                     'class' => "form-control"
                 ], 
                 'label' => "Description"
+            ])
+
+            ->add('nomType',TextType::class, [
+                'attr' => [
+                    'class' => "form-control"
+                ], 
             ])
         ;
     }

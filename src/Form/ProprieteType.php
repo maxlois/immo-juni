@@ -39,8 +39,8 @@ class ProprieteType extends AbstractType
             ])
             ->add('statut', ChoiceType::class,[
                 'choices' => [
-                    'yes' => true,
-                    'no'=> false,
+                    'Occupé' => true,
+                    'Non Occupé'=> false,
                 ], 
                 'attr'=>[
                     'class'=>'form-control'
@@ -193,24 +193,48 @@ class ProprieteType extends AbstractType
                 ],
 
                 'choice_label' => 'nomQuartier ',
-                'label' => 'Quartier ',
+                'label' => 'Quartier ', 
+                'group_by' => function (Quartier $quartier) {
+                    return $quartier->getVille()->getnomV();}
             
                 ])
             ->add('typePropriete',EntityType::class,[
                 'class' => TypePropriete::class,
                 'query_builder' => function (TypeProprieteRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('i')
-                        ->orderBy('i.nomTyPro ', 'ASC');
+                        ->orderBy('i.nomType ', 'ASC');
                 },
                 'attr' => [
                     'class' => "form-control"
                 ],
 
-                'choice_label' => 'nomTyPro ',
+                'choice_label' => 'nomType',
                 'label' => "Type propriete"
             
                 ])
+
+                ->add('propriete', ChoiceType::class,[
+                    'choices'=>[
+                        ''=>'',
+                         'immeuble'=>'Immeuble',
+                         'cour'=>'Cour',
+                         'villa'=>'villa',
+                    ],
+                    'attr'=>[
+                          'class'=>'form-control'
+                    ],
+                    'label'=>'Propriete',
+                    'required' => false
+                ])
+
+                ->add('nombPiece',TextType::class,[
+                    'attr'=>[
+                        'class'=>'form-control', 
+                    ],
+                    'label'=> 'nombre de pièce' 
+                ])
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

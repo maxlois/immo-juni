@@ -7,51 +7,56 @@
   <div class="container-fluid">
  <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Propriété</h1>
-                    <p class="mb-4"><a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Liste des Propriété</h6>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body ml-4">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 
-                                   <a href="{{path('super_admin_propriete_new')}}" class="btn btn-success btn-sm">Ajouter Propriété</a>
+                                   <a href="{{path('super_admin_propriete_new')}}" class="btn btn-success btn-sm mb-4">Ajouter Propriété</a>
+                                   
 
-                                              <div class="row">  
-                                              <div class=""></div>                            
+                                <div class="container-fluid">  
+                                    <div class="row">                          
                                                 {% for propriete in propriete %}
-
-                                                                <div class="card" style="width: 18rem;">
+                                        <div class="col-4 mt-4">
+                                          <div class="row">         
+                                                <div class="card" style="width: 18rem;">
                                                 <img src="{{ propriete.imageFile ? asset(propriete.imageFile) : asset('/images/default-propriete.jpg') }}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{propriete.nomPro}}</h5>
-                                                    <p class="card-text">{{propriete.id}}</p>
-                                                    <p>{{propriete.superficie}}</p>
-                                                    <p>{{propriete.longeur}}</p>
-                                                    <p>{{propriete.prixPro}}</p>
-                                                    <p>{{propriete.proprietaire}}</p>
-                                                    <p>{{propriete.gestionnaire}}</p>
-                                                    <p>{{propriete.quartier}}</p>
-                                                    <p>{{propriete.quartier}}</p>
-                                                    <p>{{propriete.quartier}}</p>
-                                                    <p>{{propriete.typePropriete}}</p>
-                                                    <p>{% if propriete.statut == true %}
+                                                    <hr>
+                                                <p><div class="row small"><div class="ml-2">Superficie(m2):</div>{{propriete.superficie}}</div></p>
+                                                <p><div class="row small"><div class="ml-2">longeur(m):</div>{{propriete.longeur}}</div></p>
+                                                <p><div class="row small"><div class="ml-2">Prix de la propriété (fca):</div>{{propriete.prixPro}}</div></p>
+                                                <p><div class="row small"><div class="ml-2">Nom du proprietaire:</div>{{propriete.proprietaire}}</div></p>
+                                                <p><div class="row small"><div class="ml-2">Nom du gestionnaire:</div>{{propriete.gestionnaire}}</div></p>
+                                                <p><div class="row small"><div class="ml-2">Quartier:</div>{{propriete.quartier}}</div></p>
+                                                <p><div class="row small"><div class="ml-2">Propriété</div>{{propriete.propriete}}</div></p>
+                                                <p><div class="row small"><div class="ml-2">Nombre de pièce</div>{{propriete.nombPiece}}</div>
+                                                 
+                                                    <p> <div class="ml-4">{% if propriete.statut == true %}
                                                         <span class="badge badge-success">vérifié</span>
                                                             {% else %}
                                                         <span class="badge badge-danger">Non vérifié</span>
-                                                            {% endif %}</p>
+                                                            {% endif %} </div></p>
                                                     
                                                         <a href="{{path('super_admin_propriete_edit', {id:propriete.id})}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>  
                                                                                         
                                                         <a href="{{path('super_admin_propriete_delete', {id:propriete.id})}}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
-                                                </div>
-                                                </div>
+                                                        <a href="{{path('info-immeuble', {id:propriete.id})}}" class="btn btn-warning btn-sm"><i class="fas fa-duotone fa-eye"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                                 {% endfor %}
-                                                </div>
+                            </div>
+                          </div>                      
+                                        
                 <!-- /.container-fluid -->
 
             </div>

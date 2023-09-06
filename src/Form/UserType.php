@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -39,7 +40,7 @@ class UserType extends AbstractType
                         'proprietaire' => "ROLE_PROPRIETAIRE",
                         'gestionaire' => "ROLE_GESTIONNAIRE",
                         'locataire' => "ROLE_LOCATAIRE",
-                        'administrateur' => "ROLE_SUPER_ADMIN ",
+                        'administrateur' => "ROLE_SUPER_ADMIN",
                     ],
                     'attr' => [
                         'class' => "form-control"
@@ -84,14 +85,13 @@ class UserType extends AbstractType
                 ],
                 'label'=>"Prenom"
             ])
-            ->add('dateNais', DateType::class,[
-                'attr'=> [
-                    'class'=>"form-control"
+            ->add('dateNais', BirthdayType::class,[
+                'attr'=>[
+                    'class' =>"form-control"
                 ],
-                    'widget' => 'choice',
-                    'input'  => 'datetime_immutable',
-                    'label' => "Date de naissance"
-               
+                'widget' => 'choice',
+                'input'  => 'datetime_immutable',
+                'label'=>"Date de Naissance",
             ])
             ->add('tel', NumberType::class,[
                 'attr'=> [

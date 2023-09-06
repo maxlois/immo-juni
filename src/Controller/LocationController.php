@@ -68,14 +68,14 @@ class LocationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_location_delete', methods: ['POST'])]
-    public function delete(Request $request, Location $location, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$location->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($location);
-            $entityManager->flush();
-        }
+    // #[Route('/{id}', name: 'app_location_delete', methods: ['POST'])]
+    // public function delete(Request $request, Location $location, EntityManagerInterface $entityManager): Response
+    // {
+    //     if ($this->isCsrfTokenValid('delete'.$location->getId(), $request->request->get('_token'))) {
+    //         $entityManager->remove($location);
+    //         $entityManager->flush();
+    //     }
 
-        return $this->redirectToRoute('app_location_index', [], Response::HTTP_SEE_OTHER);
-    }
+    //     return $this->redirectToRoute('app_location_index', [], Response::HTTP_SEE_OTHER);
+    // }
 }

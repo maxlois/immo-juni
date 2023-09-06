@@ -5,9 +5,9 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -40,11 +40,13 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label'=>"Prenom"
             ])
-            ->add('dateNais', DateType::class,[
+            ->add('dateNais', BirthdayType::class,[
+                'attr'=>[
+                    'class' =>"form-control"
+                ],
                 'widget' => 'choice',
                 'input'  => 'datetime_immutable',
                 'label'=>"Date de Naissance",
-                'days' => range(1,31)
             ])
             ->add('tel', NumberType::class,[
                 'attr'=> [
@@ -78,7 +80,13 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => "Profession"
             ])
-            ->add('tyPiece', TextType::class,[
+            ->add('tyPiece', ChoiceType::class,[
+                'choices'=>[
+                    'CNI'=>'cni',
+                    'Atestation'=> 'atestation',
+                    'Passport'=>'passport',
+                    'Carte de sejout'=> 'carte de sejour',
+                ],
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -127,7 +135,7 @@ class RegistrationFormType extends AbstractType
                     // instead of being set onto the object directly,
                     // this is read and encoded in the controller
                     'mapped' => false,
-                    'attr' => ['autocomplete' => 'new-password'],
+                    'attr' => ['autocomplete' => 'new-password'], 
                     'attr' => [
                         'class' => 'form-control'
                     ],

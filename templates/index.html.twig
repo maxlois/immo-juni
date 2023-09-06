@@ -2,48 +2,43 @@
 {% block title %}index{% endblock %}
 
 {% block body %}
-
-{# <img src="{{ asset('/public/style/media/beautiful-decoration-desk.jpg') }}" alt="Ma Image" > #}
-<div class="container">
+<div class="bg-image container-fluid " style="background-image: url('{{ asset('images/imag-accueil.jpg') }}'); ">
+<div class="container-fluid">
 
         <!-- Outer Row -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center pt-4">
 
             <div class="col-xl-10 col-lg-12 col-md-9">
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card o-hidden border-0 shadow-lg my-5 ">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">Bienvenue chez Immo-JUNI?</h1>
-                                        <p class="mb-4">notre application de gestion des loyers numérique ! 
-                                        Simplifiez vos transactions et profitez d'une expérience conviviale dès maintenant.</p>
+                <div class="container ">
+                        <div class="text-center">
+                           <img src="{{asset('images/logoLogI.png')}}">
+                        </div>   
+                                <div class="">
+                                    <div class="text-center text-dark">
+                                        <h1 class="h4 text-gray-900 mb-2">Bienvenue chez <span class="color"> LOGIMMO-360</span></h1>
+                                            <p class="mb-4">votre application de gestion des loyers numérique ! 
+                                                Simplifiez vos transactions et profitez d'une expérience conviviale dès maintenant.</p>
                                     </div>
-                                    <form class="user">
-
-                                    <div class="container mt-2">
-                                    <div class="col-ms-6">
-                                        <div class="btn-toolbar ">
-                                        <div class="center">
-                                        <div class="btn-group btn-lg d-grid">
-                                            <a href="{{path('app_register')}}" class="btn btn-primary btn-user btn-block">
-                                            S'inscrire
-                                             </a>
-                                             </div>
-                                          <div class="btn-group btn-lg ">
-                                        <a href="{{path('app_login')}}" class="btn btn-danger btn-user btn-block">
-                                            Se Connecter
-                                        </a>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                    </form>
+                                </div>              
+                        <form class="user">
+                                <div class="row">
+                                    <div class="col-6">
+                                                <a href="{{path('app_register')}}" class="btn btn-primary btn-user btn-block">
+                                                S'inscrire
+                                                </a>
+                                     </div>           
+                                    <div class="col-6">
+                                                <a href="{{path('app_login')}}" class="btn btn-danger btn-user btn-block">
+                                                    Se Connecter
+                                                </a>
+                                    </div>            
+                                </div>
+                        </form>
+                </div>
                                     <hr>
                                 </div>
                             </div>

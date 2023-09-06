@@ -10872,10 +10872,21 @@ a:focus {
   background-size: cover;
 }
 
-.bg-password-image {
-  background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
+.bg-image {
+  background: url("{{asset('/public/upload/13-64e7b29f55d92.jpg')}}");
   background-position: center;
   background-size: cover;
+}
+.img-bg 
+{
+    background-image: url("{{asset('upload/1901804-774435772567375-79037220-n-64e7fff58686d.jpg')}}");
+   
+}
+img{
+  width:webkit-fill-available;
+}
+.color{
+  color: #fd7e14;
 }
 
 form.user .custom-checkbox.small label {

@@ -7,8 +7,6 @@
   <div class="container-fluid">
  <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Pays</h1>
-                    <p class="mb-4"> <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -23,31 +21,22 @@
 
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Nom Pays</th>
-                                            <th>Langue</th>
-                                            <th>Identifiant Téléphonique</th>
-                                            <th>CodeISO</th>
-                                            <th></th>
+                                            <th class="small">Id</th>
+                                            <th class="small">Nom Pays</th>
+                                            <th class="small">Langue</th>
+                                            <th class="small">Identifiant Téléphonique</th>
+                                            <th class="small">CodeISO</th>
+                                            <th class="small">Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Nom Pays</th>
-                                            <th>Langue</th>
-                                            <th>Identifiant Téléphonique</th>
-                                            <th>CodeISO</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                      {% for pays in pays %}
                                          <tr>
-                                            <td>{{pays.id}}</td>
-                                            <td>{{pays.nomP}}</td>
-                                            <td>{{pays.langue}}</td>
-                                            <td>+{{pays.identifTel}}</td>
-                                            <td>{{pays.codeIso}}</td>
+                                            <td class="small">{{pays.id}}</td>
+                                            <td class="small">{{pays.nomP}}</td>
+                                            <td class="small">{{pays.langue}}</td>
+                                            <td class="small">+{{pays.identifTel}}</td>
+                                            <td class="small">{{pays.codeIso}}</td>
                                             <td>
                                            <a href="{{path('super_admin_pays_edit', {id:pays.id})}}" class="btn btn-info btn-sm">Modifier pays</a>
                                           

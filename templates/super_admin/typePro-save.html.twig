@@ -10,13 +10,10 @@
     <div class="card-body">
         {{ form_start(typeProForm) }}
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{ form_row(typeProForm.nomTyPro) }}</div></div>
-                <div class="col-md-4">{{ form_row(typeProForm.nombPiece) }}</div>
+                <div class="col-md-4">{{form_row(typeProForm.nomType)}}</div>
                 <div class="col-md-4">{{ form_row(typeProForm.typeBase) }}</div>
                 <div class="col-md-4">{{ form_row(typeProForm.descTyp) }}</div>
-                <div class="col-md-4"><button class="btn btn-primary" type="submit">Ajouter</button></div>
+                <div class="col-md-4 mt-4"><button class="btn btn-primary" type="submit">Ajouter</button></div>
             </div>
         {{ form_end(typeProForm) }}
     </div>

@@ -10,25 +10,24 @@
     <div class="card-body">
         {{ form_start(proprieteForm) }}
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{ form_row(proprieteForm.nomPro) }}</div>
-                        </div>
+                <div class="col-md-4 ">{{ form_row(proprieteForm.nomPro) }}</div>   
                 <div class="col-md-4">{{ form_row(proprieteForm.superficie) }}</div>
                 <div class="col-md-4">{{ form_row(proprieteForm.longeur) }}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.largeur) }}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.hauteur) }}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.prixPro)}}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.proprietaire)}}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.gestionnaire)}}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.quartier)}}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.typePropriete)}}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.statut) }}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.image) }}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.image2) }}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.image3) }}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.image4) }}</div>
-                <div class="col-md-4">{{ form_row(proprieteForm.image5) }}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.largeur) }}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.hauteur) }}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.prixPro)}}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.proprietaire)}}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.gestionnaire)}}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.quartier)}}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.typePropriete)}}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.propriete)}}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.statut) }}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.image) }}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.image2) }}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.image3) }}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.image4) }}</div>
+                <div class="col-md-4 mt-4">{{ form_row(proprieteForm.image5) }}</div>
+                <div class="col-md-4 mt-4">{{form_row(proprieteForm.nombPiece)}}</div> 
                 
                 <div class="col-md-12 pt-3"><button class="btn btn-primary" type="submit">Ajouter</button></div>
             </div>

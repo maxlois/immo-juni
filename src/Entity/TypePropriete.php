@@ -17,9 +17,6 @@ class TypePropriete
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ? int $nombPiece = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $typeBase = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -27,6 +24,9 @@ class TypePropriete
 
     #[ORM\OneToMany(mappedBy: 'typePropriete', targetEntity: Propriete::class)]
     private Collection $proprietes;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nomType = null;
 
     public function __construct()
     {
@@ -38,17 +38,6 @@ class TypePropriete
         return $this->id;
     }
 
-    public function getNombPiece(): ?int
-    {
-        return $this->nombPiece;
-    }
-
-    public function setNombPiece(int $nombPiece): static
-    {
-        $this->nombPiece = $nombPiece;
-
-        return $this;
-    }
 
     public function getTypeBase(): ?bool
     {
@@ -105,8 +94,16 @@ class TypePropriete
     }
 
 
-    public function __toString()
+    public function getNomType(): ?string
     {
-       return $this->nombPiece;
+        return $this->nomType;
     }
+
+    public function setNomType(string $nomType): static
+    {
+        $this->nomType = $nomType;
+
+        return $this;
+    }
+
 }

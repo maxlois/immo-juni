@@ -36,6 +36,9 @@ class Propriete
     #[ORM\Column(length: 255)]
     private ?string $nomPro = null;
 
+    #[ORM\Column(length: 255)]
+    private ? int $nombPiece = null;
+
     #[ORM\ManyToOne(inversedBy: 'proprietes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $proprietaire = null;
@@ -69,6 +72,9 @@ class Propriete
 
     #[ORM\Column(length: 255)]
     private ?string $image5File = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $propriete = null;
 
     public function __construct()
     {
@@ -163,6 +169,18 @@ class Propriete
     public function setNomPro(string $nomPro): static
     {
         $this->nomPro = $nomPro;
+
+        return $this;
+    }
+
+    public function getNombPiece(): ?int
+    {
+        return $this->nombPiece;
+    }
+
+    public function setNombPiece(int $nombPiece): static
+    {
+        $this->nombPiece = $nombPiece;
 
         return $this;
     }
@@ -305,5 +323,21 @@ class Propriete
         return $this;
     }
 
+    public function getPropriete(): ?string
+    {
+        return $this->propriete;
+    }
+
+    public function setPropriete(?string $propriete): static
+    {
+        $this->propriete = $propriete;
+
+        return $this;
+    }
+
    
+    public function __toString()
+    {
+       return $this->nombPiece;
+    }
 }

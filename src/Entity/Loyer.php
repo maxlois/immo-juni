@@ -38,10 +38,10 @@ class Loyer
     private ?int $appliPenal = null;
 
     #[ORM\Column(length: 25)]
-    private ?date $mois = null;
+    private ?string $mois = null;
 
     #[ORM\Column(length: 255)]
-    private ?date $annee = null;
+    private ?int $annee = null;
 
     #[ORM\Column(length: 255)]
     private ?string $modePaie = null;
@@ -78,12 +78,12 @@ class Loyer
         return $this;
     }
 
-    public function getCoutMensuel(): ?float
+    public function getCoutL(): ?float
     {
         return $this->coutL;
     }
 
-    public function setCoutMensuel(float $coutL): static
+    public function setCoutL(float $coutL): static
     {
         $this->coutL = $coutL;
 
@@ -150,24 +150,24 @@ class Loyer
         return $this;
     }
 
-    public function getMois(): ?date
+    public function getMois(): ?string
     {
         return $this->mois;
     }
 
-    public function setMois(date $mois): static
+    public function setMois(string $mois): static
     {
         $this->mois = $mois;
 
         return $this;
     }
 
-    public function getAnnee(): ?date
+    public function getAnnee(): ?int
     {
         return $this->annee;
     }
 
-    public function setAnnee(date $annee): static
+    public function setAnnee(int $annee): static
     {
         $this->annee = $annee;
 

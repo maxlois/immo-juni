@@ -18,7 +18,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{path('super_admin_home')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>accueil</span></a>
             </li>
@@ -84,6 +84,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{path('super_admin_type_propriete_list')}}">Type Propriété</a>
                         <a class="collapse-item" href="{{path('super_admin_propriete_list')}}">Propriété</a>
+                        <a class="collapse-item" href="{{path('super_admin_loyer_list')}}">Loyer</a>
+                        <a class="collapse-item" href="{{path('super_admin_location_liste')}}">Location</a>
+
                         <div class="collapse-divider"></div>
                     </div>
                 </div>
@@ -292,9 +295,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Koussi</span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="images/photo.jpg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

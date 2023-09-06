@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Location;
+use App\Entity\Loyer;
 use App\Entity\Pays;
 use App\Entity\Propriete;
 use App\Entity\Quartier;
@@ -9,11 +11,15 @@ use App\Entity\TypePropriete;
 use App\Entity\User;
 use App\Entity\Ville;
 use App\Form\FormPaysType;
+use App\Form\LocationType;
+use App\Form\LoyerType;
 use App\Form\ProprieteType;
 use App\Form\QuartierType;
 use App\Form\TypeProType;
 use App\Form\UserType;
 use App\Form\VilleType;
+use App\Repository\LocationRepository;
+use App\Repository\LoyerRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\PaysRepository;
 use App\Repository\ProprieteRepository;
@@ -57,14 +63,13 @@ class SuperAdminController extends AbstractController
     public function saveUtilisateur(User $user = null, Request $request,UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $em):Response
     {
         //creation d'utilisateur
-        $attrRequired = false ;
-        if(!$user){
-             $user =  new User();
-            $attrRequired = true;
-        }
+        // $attrRequired = false ;
+        if(!$user) $user =  new User();
+            // $attrRequired = true;
+        
 
         //ceation de formulaire
-        $userForm = $this->createForm(UserType::class, $user, ['attrRequired' => $attrRequired]);
+        $userForm = $this->createForm(UserType::class, $user);
 
         //Traitement de la requete du formulaire
         $userForm ->handleRequest($request);
@@ -76,7 +81,7 @@ class SuperAdminController extends AbstractController
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $user = $userForm->getData()
+                    $user->getPassword()
                 )
             );
 
@@ -339,6 +344,12 @@ class SuperAdminController extends AbstractController
          ]);
  
      }
+
+     #[Route('super_admin/info-immeuble/{id}', name:'info-immeuble')]
+     public function infoIm(Propriete $propriete):Response
+     {
+      return $this->render('/super_admin/info-immeuble.html.twig', compact('propriete'));
+     }
  
      #[Route('/super_admin/propriete/new', name: 'super_admin_propriete_new')]
      #[Route('/super_admin/propriete/{id}/edit', name: 'super_admin_propriete_edit')]
@@ -394,7 +405,7 @@ class SuperAdminController extends AbstractController
      {
         $em->remove($propriete);
         $em->flush();
-      return $this->redirectToRoute('super_admin_propri_list');
+      return $this->redirectToRoute('super_admin_propriete_list');
      }
  
      public function uploadFile($file, SluggerInterface $slugger)
@@ -416,4 +427,121 @@ class SuperAdminController extends AbstractController
 
         return '/upload/' . $newFilename ;
      }
+
+
+
+        // gestion de loyer 
+
+    
+       #[Route('/super_admin/loyer', name: 'super_admin_loyer_list')]
+       public function listLoyer(LoyerRepository $repository): Response
+       {
+
+            return $this->render('/super_admin/loyer-list.html.twig', [           
+               'loyer' => $repository-> findAll()
+            ]);
+
+       }
+
+        #[Route('/super_admin/loyer/new', name: 'super_admin_loyer_new')]
+        #[Route('/super_admin/loyer/{id}/edit', name: 'super_admin_loyer_edit')]
+        public function saveLoyer(Loyer $loyer = null, Request $request, EntityManagerInterface $em):Response
+        {
+             //creation de la Quartier
+            if(!$loyer) $loyer =  new Loyer();
+
+            //ceation de formulaire
+           $loyerForm = $this->createForm(LoyerType::class, $loyer);
+
+            //Traitement de la requete du formulaire
+           $loyerForm ->handleRequest($request);
+
+           //vérification du formulaire
+           if( $loyerForm->isSubmitted() && $loyerForm->isValid()){
+               //$pays = $paysForm->getData();
+               //stoker dans la base de donnée
+               $em->persist($loyer);
+               $em->flush();
+               $this->addFlash('success', 'loyer ajouté');
+
+               //redirection
+               return $this->redirectToRoute('super_admin_loyer_list');
+           }
+        
+            return $this->render('/super_admin/loyer-save.html.twig', [
+                'loyerForm'=> $loyerForm->createview()
+            ]);
+
+       }
+
+
+         //Pour supprimer un loyer
+       #[Route('super_admin/loyer/{id}/delete', name: 'super_admin_loyer_delete')]
+       public function deleteLoyer(Loyer $loyer, EntityManagerInterface $em): Response
+       {
+           //pour supprimer le formulaire
+          $em->remove($loyer);
+          $em->flush();
+         return $this->redirectToRoute('super_admin_loyer_list');
+       }
+
+
+
+       
+       #[Route('/super_admin/location', name: 'super_admin_location_liste',methods: ['GET', 'POST'])]
+       public function listLocation(LocationRepository $repository): Response
+       {
+
+            return $this->render('/super_admin/location-liste.html.twig', [           
+               'location' => $repository-> findAll()
+            ]);
+
+       }
+
+       #[Route('/super_admin/location/new', name: 'super_admin_location_new', methods: ['GET'])]
+       #[Route('/super_admin/location/{id}/edit', name: 'super_admin_location_edit',methods: ['GET', 'POST'])]
+       public function saveLocation(Location $location = null, Request $request, EntityManagerInterface $em):Response
+       {
+           //creation de la Quartier
+           if(!$location) $location =  new Location();
+
+           //ceation de formulaire
+           $locationForm = $this->createForm(LocationType::class, $location);
+
+           //Traitement de la requete du formulaire
+           $locationForm ->handleRequest($request);
+
+           //vérification du formulaire
+           if( $locationForm->isSubmitted() && $locationForm->isValid()){
+               //$pays = $paysForm->getData();
+               //stoker dans la base de donnée
+               $em->persist($location);
+               $em->flush();
+               $this->addFlash('success', 'location ajouté');
+
+               //redirection
+               return $this->redirectToRoute('super_admin_location_liste');
+           }
+        
+           return $this->render('/super_admin/location-save.html.twig', [
+               'locationForm'=> $locationForm->createview()
+           ]);
+
+       }
+
+
+    
+
+       #[Route('super_admin/location/{id}/delete', name: 'super_admin_location_delete', methods: ['POST'])]
+       public function delete(Request $request, Location $location, EntityManagerInterface $entityManager): Response
+       {
+           if ($this->isCsrfTokenValid('delete'.$location->getId(), $request->request->get('_token'))) {
+               $entityManager->remove($location);
+               $entityManager->flush();
+           }
+
+           return $this->redirectToRoute('super_admin_location_liste', [], Response::HTTP_SEE_OTHER);
+       }
+
+
 }
