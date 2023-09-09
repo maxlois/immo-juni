@@ -7,17 +7,16 @@
   <div class="container-fluid">
  <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Ville</h1>
-
+                      {% for message in app.flashes('success') %}
+                          <div class="alert alert-success">{{message}}</div>
+                    
+                           {% endfor %}
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Liste Ville</h6>
-                        </div>
                         <div class="card-body">
+                             <a href="{{path('super_admin_ville_new')}}" class="btn btn-success btn-sm mb-4">Ajouter Ville</a>
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
-                                   <a href="{{path('super_admin_ville_new')}}" class="btn btn-success btn-sm">Ajouter Ville</a>
+                                <table class="table">
 
                                     <thead>
                                         <tr>

@@ -21,6 +21,15 @@ class ProprieteRepository extends ServiceEntityRepository
         parent::__construct($registry, Propriete::class);
     }
 
+   public function getProprietesPere()
+   {
+       return $this->createQueryBuilder('p')
+           ->leftJoin('p.typePropriete', 'type')
+           ->andWhere('type.typeBase = :val')
+           ->setParameter('val', true)
+           ->orderBy('p.nomPro', 'ASC')
+       ;
+   }
 //    /**
 //     * @return Propriete[] Returns an array of Propriete objects
 //     */

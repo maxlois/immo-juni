@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Location index{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+ <!-- Page Heading -->
+
+                    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste Des locations</h6>
+        </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                       <h1>Location </h1>
+                           <a href="{{path('super_admin_location_new')}}" class="btn btn-success btn-sm mb-4">Ajouter location</a>
+                             <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Date de location</th>
+                                        <th>Penalite(%)</th>
+                                        <th>Mois</th>
+                                        <th>Année</th>
+                                        <th>Causion d'entré</th>
+                                        <th>Délais de paiement</th>
+                                        <th>Etat de Lieu</th>
+                                        <th>Nombre de mois d'avance</th>
+                                        <th>actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for location in location %}
+                                    <tr>
+                                        <td>{{ location.id }}</td>
+                                        <td>{{ location.dateDLocation ? location.dateDLocation|date('Y-m-d') : '' }}</td>
+                                        <td>{{ location.penalite}}</td>
+                                        <td>{{ location.mois }}</td>  
+                                        <td>{{ location.annee }}</td>
+                                        <td>{{ location.causionEnt }}</td>
+                                        <td>{{location.delaisPaiem}}
+                                        <td>{{ location.etatLieuFile ? asset(location.etatLieuFile) }}</td>
+                                        <td>{{ location.moisAvance}}</td>
+                                        <td>
+                                            {# <a href="{{ path('super_admin_location_delete', {'id': location.id}) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a> #}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="9">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                 </div>
+        </div>
+    </div>
+</div>                    
+{% endblock %}

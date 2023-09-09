@@ -1,0 +1,108 @@
+{% extends "base.html.twig" %}
+{% block title %}info propriété{% endblock %}
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        
+            <div class="col-6">
+                   <hr>
+                      <dl>
+                        <dt><h3>{{propriete.nomPro}}</h3></dt>
+
+                          <dt class="row ml-4 mt-4">Adresse: {{propriete.quartier}}</dt>
+                          <dt class="row ml-4 mt-4">Prix propriété cfa: {{propriete.prixPro}}</dt>
+                          <dt class="row ml-4 mt-4">Nom du proprietaire: {{propriete.proprietaire}}</dt>
+                          <dt class="row ml-4 mt-4">Nom du gestionnaire: {{propriete.gestionnaire}}</dt>
+   
+                            <div class="ml-4 mr-4">{% if propriete.statut == true %}
+                                <span class="badge badge-success">vérifié</span>
+                                            {% else %}
+                                    <span class="badge badge-danger">Non vérifié</span>
+                                            {% endif %} </div>
+                             </dl>
+            <div class="row mt-4 m-4 action">                                            
+                        <a href="" class="btn btn-info btn-sm mr-4"><i class="fas fa-edit"></i></a>  
+                                                                                                
+                            <a href="" class="btn btn-danger btn-sm mr-4"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </div>
+                <div class="col-6">
+                <img src="{{ propriete.imageFile ? asset(propriete.imageFile) : asset('/images/default-propriete.jpg') }}" class="card-img-top" alt="...">
+            </div>
+            </div>
+  </div>
+</div>
+<div class="table-responsive">
+        <table class="table table-sm table-striped ml-4" style="max-width: 50% ; overflow-y: auto;">
+        <tr>
+            <th>Information</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Superficie (m²)</td>
+            <td>{{propriete.superficie}}</td>
+        </tr>
+        <tr>
+            <td>longeur(m):</td>
+            <td>{{propriete.longeur}}</td>
+        </tr>
+       {% if propriete.proprietePere %}
+        <tr>
+            <td>Appartient à</td>
+            <td>{{propriete.proprietePere.nomPro}}</td>
+        </tr>
+        
+        {% endif %}
+
+        <tr>
+            <td>Nombre de pièce</td>
+            <td>{{propriete.nombPiece}}</td>
+        </tr>
+        </table>
+</div> 
+
+    {% if propriete.proprietesFils %}
+
+        <div class="appart ml-4"><h3>Les Appartements</h3></div>
+
+          <div class="container-fluid">  
+             <div class="row">   
+              {% for pFils in propriete.proprietesFils %}                                 
+                <div class="col-4 mt-4">
+                  <div class="row"> 
+                     <div class="apparts-list ml-4">
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ pFils.imageFile ? asset(pFils.imageFile) : asset('/images/default-propriete.jpg') }}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title"></h5>
+                                                <hr>
+                                                <div class="row small"><div class="ml-2 mb-0"><p class="mb-0">{{pFils.nomPro}}</p></div></div>
+                                                <div class="row small"><div class="ml-2 mb-0"><p class="mb-0">Superficie (m²): {{pFils.superficie}}</p></div></div>
+                                                <div class="row small"><div class="ml-2 mb-0"><p class="mb-0">longeur (m): {{pFils.longeur}}</p></div></div>
+                                                <div class="row small"><div class="ml-2 mb-0"><p class="mb-0">Quartier: {{pFils.quartier}}</div></div>
+                                                <div class="row small"><div class="ml-2 mb-0"><p class="mb-0">Prix de la propriete: {{pFils.prixPro}}</div></div>
+                                                <div class="row small"><div class="ml-2 mb-0"><p class="mb-0">Nombre de piece: {{pFils.nombPiece}}</div></div>
+                                                    <p> <div class="ml-4">{% if pFils.statut == true %}
+                                                        <span class="badge badge-success">Occupé</span>
+                                                            {% else %}
+                                                        <span class="badge badge-danger">Non Occupé</span>
+                                                            {% endif %} </div></p>
+                                                    
+                                                        <a href="{{path('super_admin_propriete_edit', {id:propriete.id})}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>  
+                                                                                        
+                                                        <a href="{{path('super_admin_propriete_delete', {id:propriete.id})}}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                            </div>
+                                         </div>
+                                        </div>
+                                       </div>
+                                     <div class="col-8 mt-4">
+                                    </div>
+                                </div>
+                        {% endfor %}
+                                                       
+         </div>
+    </div> 
+    {% endif %}
+ 
+{% endblock %}

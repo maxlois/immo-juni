@@ -1,0 +1,38 @@
+
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Formulaire location</h6>
+    </div>
+    <div class="card-body">
+              {{ form_start(locationForm) }}
+           
+                
+                    <div class="row">
+                         <div class='col-4'>{{ form_row(locationForm.dateD_location) }}</div>
+                         <div class='col-4'>{{ form_row(locationForm.penalite) }}</div>
+                          <div class='col-4'>{{ form_row(locationForm.mois) }}</div>
+                    </div>
+                    <div class="row">
+                         <div class='col-4'>{{ form_row(locationForm.annee) }}</div>
+                         <div class='col-4'>{{ form_row(locationForm.causionEnt) }}</div>
+                         <div class='col-4'>{{form_row(locationForm.moisAvance)}}</div>
+                    </div>
+                    <div class="row">     
+                         <div class='col-4'>{{ form_row(locationForm.propriete) }}</div>
+                         <div class='col-4'>{{ form_row(locationForm.locataire) }}</div>
+                         <div class='col-4'>{{ form_row(locationForm.delaisPaiem) }}</div>
+                    </div>
+                    <div class='col-4'>{{ form_row(locationForm.etatLieu) }}</div>
+                    <button class="btn btn-primary" type="submit"> {{ button_label|default('modifier') }} </button>
+    
+    </div>
+{{ form_end(locationForm) }}
+
+</div>
+</div>
+
+{% endblock %}

@@ -19,23 +19,20 @@ class Loyer
     #[ORM\Column(length: 255)]
     private ?float $prixLoyer = null;
 
-    #[ORM\Column(length: 255)]
-    private ?float $coutL = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateLoyer = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $typePaie = null;
+    private ?bool $typePaie = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $statutLoy = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?bool $statutLoy = null;
 
     #[ORM\Column(length: 255)]
     private ?float $MontLoy = null;
 
     #[ORM\Column(length: 255)]
-    private ?int $appliPenal = null;
+    private ?bool $appliPenal = null;
 
     #[ORM\Column(length: 25)]
     private ?string $mois = null;
@@ -56,10 +53,6 @@ class Loyer
     #[ORM\JoinColumn(nullable: false)]
     private ?Location $location = null;
 
-    public function __construct()
-    {
-        $this->locations = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -78,18 +71,6 @@ class Loyer
         return $this;
     }
 
-    public function getCoutL(): ?float
-    {
-        return $this->coutL;
-    }
-
-    public function setCoutL(float $coutL): static
-    {
-        $this->coutL = $coutL;
-
-        return $this;
-    }
-
     public function getDateLoyer(): ?\DateTimeInterface
     {
         return $this->dateLoyer;
@@ -102,24 +83,24 @@ class Loyer
         return $this;
     }
 
-    public function getTypePaie(): ?string
+    public function getTypePaie(): ?bool
     {
         return $this->typePaie;
     }
 
-    public function setTypePaie(string $typePaie): static
+    public function setTypePaie(bool $typePaie): static
     {
         $this->typePaie = $typePaie;
 
         return $this;
     }
 
-    public function getStatutLoy(): ?string
+    public function getStatutLoy(): ?bool
     {
         return $this->statutLoy;
     }
 
-    public function setStatutLoy(string $statutLoy): static
+    public function setStatutLoy(bool $statutLoy): static
     {
         $this->statutLoy = $statutLoy;
 
@@ -138,12 +119,12 @@ class Loyer
         return $this;
     }
 
-    public function getAppliPenal(): ?int
+    public function getAppliPenal(): ?bool
     {
         return $this->appliPenal;
     }
 
-    public function setAppliPenal(int $appliPenal): static
+    public function setAppliPenal(bool $appliPenal): static
     {
         $this->appliPenal = $appliPenal;
 
@@ -210,36 +191,6 @@ class Loyer
         return $this;
     }
 
-    /**
-     * @return Collection<int, Location>
-     */
-    public function getLocations(): Collection
-    {
-        return $this->locations;
-    }
-
-    public function addLocation(Location $location): static
-    {
-        if (!$this->locations->contains($location)) {
-            $this->locations->add($location);
-            $location->setLoyer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLocation(Location $location): static
-    {
-        if ($this->locations->removeElement($location)) {
-            // set the owning side to null (unless already changed)
-            if ($location->getLoyer() === $this) {
-                $location->setLoyer(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getLocation(): ?Location
     {
         return $this->location;
@@ -251,4 +202,5 @@ class Loyer
 
         return $this;
     }
+    
 }

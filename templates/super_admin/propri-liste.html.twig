@@ -7,12 +7,12 @@
   <div class="container-fluid">
  <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Propriété</h1>
-
+                          {% for message in app.flashes('success') %}
+                          <div class="alert alert-success">{{message}}</div>
+                    
+                           {% endfor %}
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Liste des Propriété</h6>
-                        </div>
                         <div class="card-body ml-4">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -29,14 +29,19 @@
                                                 <img src="{{ propriete.imageFile ? asset(propriete.imageFile) : asset('/images/default-propriete.jpg') }}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{propriete.nomPro}}</h5>
-                                                    <hr>
-                                                <p><div class="row small"><div class="ml-2">Superficie(m2):</div>{{propriete.superficie}}</div></p>
-                                                <p><div class="row small"><div class="ml-2">longeur(m):</div>{{propriete.longeur}}</div></p>
+                                                    <ul class="list-group list-group-flush small">
+                                                        <li class="list-group-item py-1"><b>Superficie (m<sup>2</sup>):</b> {{propriete.superficie}}</li>
+                                                        <li class="list-group-item py-1"><b>Longeur (m): </b> {{propriete.longeur}}</li>
+                                                        {% if propriete.proprietePere %}
+                                                            <li class="list-group-item py-1"><b> Appartient à :</b> {{propriete.proprietePere.nomPro}}</li>
+                                                        {% endif %}
+                                                    </ul>
                                                 <p><div class="row small"><div class="ml-2">Prix de la propriété (fca):</div>{{propriete.prixPro}}</div></p>
                                                 <p><div class="row small"><div class="ml-2">Nom du proprietaire:</div>{{propriete.proprietaire}}</div></p>
                                                 <p><div class="row small"><div class="ml-2">Nom du gestionnaire:</div>{{propriete.gestionnaire}}</div></p>
                                                 <p><div class="row small"><div class="ml-2">Quartier:</div>{{propriete.quartier}}</div></p>
-                                                <p><div class="row small"><div class="ml-2">Propriété</div>{{propriete.propriete}}</div></p>
+                                                
+                                                <p><div class="row small"><div class="ml-2">Propriété</div></div></p>
                                                 <p><div class="row small"><div class="ml-2">Nombre de pièce</div>{{propriete.nombPiece}}</div>
                                                  
                                                     <p> <div class="ml-4">{% if propriete.statut == true %}

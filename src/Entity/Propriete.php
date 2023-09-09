@@ -73,12 +73,16 @@ class Propriete
     #[ORM\Column(length: 255)]
     private ?string $image5File = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $propriete = null;
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'proprietesFils')]
+    private ?self $proprietePere = null;
+
+    #[ORM\OneToMany(mappedBy: 'proprietePere', targetEntity: self::class)]
+    private Collection $proprietesFils;
 
     public function __construct()
     {
         $this->locations = new ArrayCollection();
+        $this->proprietesFils = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -322,22 +326,51 @@ class Propriete
 
         return $this;
     }
-
-    public function getPropriete(): ?string
-    {
-        return $this->propriete;
-    }
-
-    public function setPropriete(?string $propriete): static
-    {
-        $this->propriete = $propriete;
-
-        return $this;
-    }
-
    
     public function __toString()
     {
        return $this->nombPiece;
+    }
+
+    public function getProprietePere(): ?self
+    {
+        return $this->proprietePere;
+    }
+
+    public function setProprietePere(?self $proprietePere): static
+    {
+        $this->proprietePere = $proprietePere;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getProprietesFils(): Collection
+    {
+        return $this->proprietesFils;
+    }
+
+    public function addProprietesFil(self $proprietesFil): static
+    {
+        if (!$this->proprietesFils->contains($proprietesFil)) {
+            $this->proprietesFils->add($proprietesFil);
+            $proprietesFil->setProprietePere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProprietesFil(self $proprietesFil): static
+    {
+        if ($this->proprietesFils->removeElement($proprietesFil)) {
+            // set the owning side to null (unless already changed)
+            if ($proprietesFil->getProprietePere() === $this) {
+                $proprietesFil->setProprietePere(null);
+            }
+        }
+
+        return $this;
     }
 }

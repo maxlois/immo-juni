@@ -26,12 +26,6 @@ class LoyerType extends AbstractType
                 ],
                     'label' => "Prix du Loyer"
             ] )
-            ->add('coutL',TextType::class,[
-                'attr' => [
-                   'class'=>'form-control'
-                ],
-                    'label' => "Coût du Loyer"
-            ])
             ->add('dateLoyer', DateType::class,[
                 'attr'=>[
                   'class'=>'form-control'
@@ -40,23 +34,24 @@ class LoyerType extends AbstractType
             ])
             ->add('typePaie',ChoiceType::class, [
                 'choices'  => [
-                    'Avance' => "Avance",
-                    'Tout Payer' => "Tout Payer",
+                    'Impayé' => 0,
+                    'Payement partiel' => 1 ,
+                    'Payement total' => 2
                 ],
                 'attr'=>[
                     'class'=>'form-control'
                 ],
                 'label'=>'Type de Paiement'
                 ])
-            ->add('statutLoy', ChoiceType::class, [
-                'choices'  => [
-                  'yes' => true,
-                  'no' => false,
-                   ],'attr' => [
-                  'class' => "form-control"
-              ],
-              'label'=>'Statut du Loyer'
-              ])
+            // ->add('statutLoy', ChoiceType::class, [
+            //     'choices'  => [
+            //       'yes' => true,
+            //       'no' => false,
+            //        ],'attr' => [
+            //       'class' => "form-control"
+            //   ],
+            //   'label'=>'Statut du Loyer'
+            //   ])
             ->add('MontLoy',TextType::class,[
                 'attr' => [
                    'class'=>'form-control'

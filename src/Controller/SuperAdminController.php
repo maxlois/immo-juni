@@ -346,9 +346,9 @@ class SuperAdminController extends AbstractController
      }
 
      #[Route('super_admin/info-immeuble/{id}', name:'info-immeuble')]
-     public function infoIm(Propriete $propriete):Response
+     public function infoIm(Propriete $propriete , string $id , EntityManagerInterface $entityManager ):Response
      {
-      return $this->render('/super_admin/info-immeuble.html.twig', compact('propriete'));
+       return $this->render('/super_admin/info-immeuble.html.twig', compact('propriete'));
      }
  
      #[Route('/super_admin/propriete/new', name: 'super_admin_propriete_new')]
@@ -498,26 +498,76 @@ class SuperAdminController extends AbstractController
 
        }
 
-       #[Route('/super_admin/location/new', name: 'super_admin_location_new', methods: ['GET'])]
-       #[Route('/super_admin/location/{id}/edit', name: 'super_admin_location_edit',methods: ['GET', 'POST'])]
-       public function saveLocation(Location $location = null, Request $request, EntityManagerInterface $em):Response
+       #[Route('/super_admin/location/new', name: 'super_admin_location_new')]
+       //#[Route('/super_admin/location/{id}/edit', name: 'super_admin_location_edit')]
+       public function saveLocation(Location $location = null, Request $request, SluggerInterface $slugger, EntityManagerInterface $em):Response
        {
            //creation de la Quartier
-           if(!$location) $location =  new Location();
+           $attrRequired = false ;
+           //creation propriete
+           if(!$location){
+              $location =  new Location();
+              $attrRequired = true ;
+           }
 
            //ceation de formulaire
-           $locationForm = $this->createForm(LocationType::class, $location);
+           $locationForm = $this->createForm(LocationType::class, $location, ['attrRequired' => $attrRequired]);
 
            //Traitement de la requete du formulaire
            $locationForm ->handleRequest($request);
 
            //vérification du formulaire
            if( $locationForm->isSubmitted() && $locationForm->isValid()){
-               //$pays = $paysForm->getData();
+                $etatLieuFile = $locationForm->get('etatLieu')->getData();
+
+                if ($etatLieuFile) $location->setetatLieu($this->uploadFile($etatLieuFile, $slugger));
+
                //stoker dans la base de donnée
                $em->persist($location);
                $em->flush();
                $this->addFlash('success', 'location ajouté');
+
+               // Mettre à jour le statut de la propriété
+               $propriete = $location->getPropriete() ;
+
+               $propriete->setStatut(true);
+               $em->persist($propriete);
+               $em->flush();
+
+               // Enregistrer les premiers loyers
+               $moisEnCours = intval($location->getMois()) ;
+               $anneeEncours = intval($location->getAnnee()) ;
+               $modePaiem = $locationForm->get('modePaiem')->getData();
+
+               for($i = 0; $i < intval($location->getMoisAvance()); $i++){
+                    $loyer = new Loyer ;
+                    $prixLoyer = $location->getPropriete()->getPrixPro() ;
+                    
+                    if($i > 0){
+                        $moisEnCours++ ;
+
+                        if($moisEnCours > 12){
+                            $moisEnCours = 1;
+                            $anneeEncours++ ;
+                        }
+                    }
+
+                    $loyer->setPrixLoyer($prixLoyer)
+                          ->setDateLoyer($location->getDateDLocation())
+                          ->setTypePaie(2)
+                          ->setStatutLoy(true)
+                          ->setMontLoy($prixLoyer)
+                          ->setAppliPenal(false)
+                          ->setMois($moisEnCours)
+                          ->setAnnee($anneeEncours)
+                          ->setModePaie($modePaiem)
+                          ->setRefPaie(uniqid())
+                          ->setMontPaie($prixLoyer)
+                          ->setLocation($location) ;
+
+                    $em->persist($loyer);
+                    $em->flush();
+                }
 
                //redirection
                return $this->redirectToRoute('super_admin_location_liste');
@@ -542,6 +592,26 @@ class SuperAdminController extends AbstractController
 
            return $this->redirectToRoute('super_admin_location_liste', [], Response::HTTP_SEE_OTHER);
        }
+
+       public function etalieuFile($file, SluggerInterface $slugger)
+     {
+        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('upload_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+        return '/upload/' . $newFilename ;
+     }
 
 
 }

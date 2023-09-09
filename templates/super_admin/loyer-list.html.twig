@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Loyer index{% endblock %}
+
+{% block body %}
+     <div class="container-fluid">
+ <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Loyer </h1>
+                            {% for message in app.flashes('success') %}
+                          <div class="alert alert-success">{{message}}</div>
+                    
+                           {% endfor %}
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                <a href="{{path('super_admin_loyer_new')}}" class="btn btn-success btn-sm mb-4">Ajouter Loyer</a>
+                                            <thead>
+                                                <tr>
+                                                    <th >Id</th>
+                                                    <th >Prix duLoyer</th>
+                                                    <th >Date de paiement de Loyer</th>
+                                                    <th >Type de Paiement</th>
+                                                    <th >Montant Payé</th>
+                                                    <th >Penalité</th>
+                                                    <th >Mois</th>
+                                                    <th >Année</th>
+                                                    <th >Mode de Paiement</th>
+                                                    <th >Reférence de Paiement</th>
+                                                    <th >MontPaie</th>
+                                                    <th>Location</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for loyer in loyer %}
+                                                <tr>
+                                                    <td class="small">{{ loyer.id }}</td>
+                                                    <td class="small">{{ loyer.prixLoyer }}</td>
+                                                    <td class="small">{{ loyer.dateLoyer ? loyer.dateLoyer|date('Y-m-d') : '' }}</td>
+                                                    <td class="small">{{ loyer.typePaie }}</td>
+                                                    <td class="small">{{ loyer.MontLoy }}</td>
+                                                    <td class="small">{{ loyer.appliPenal }}</td>
+                                                    <td class="small">{{ loyer.mois }}</td>
+                                                    <td class="small">{{ loyer.annee }}</td>
+                                                    <td class="small">{{ loyer.modePaie }}</td>
+                                                    <td class="small">{{ loyer.refPaie }}</td>
+                                                    <td class="small">{{ loyer.montPaie }}</td>
+                                                    <td class="small">{{loyer.location}}</td>
+                                                    <td class="small">
+                                                        <a href="{{ path('super_admin_loyer_delete', {'id': loyer.id}) }}"class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                                        <a href="{{ path('super_admin_loyer_edit', {'id': loyer.id}) }}"class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                                    </td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="14">no records found</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+{% endblock %}

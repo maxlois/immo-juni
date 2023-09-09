@@ -21,10 +21,10 @@
                             </div>
                             <div class="container">
                                 <div class="row">
-                                         <div class="col-4">
+                                         <div class="col-4 ">
                                              {{ form_row(registrationForm.nom) }}
                                          </div>
-                                         <div class="col-4">
+                                         <div class="col-4 ">
                                              {{ form_row(registrationForm.prenom) }}
                                          </div>
                                          <div class="col-4 ">
@@ -33,51 +33,49 @@
                                 </div>
 
                                 <div class="row">                
-                                         <div class="col-4 " >
+                                         <div class="col-4 mt-4" >
                                              {{ form_row(registrationForm.email) }}
                                          </div>
-                                         <div class="col-4">
+                                         <div class="col-4 mt-4">
                                              {{ form_row(registrationForm.adress) }}
                                          </div>
-                                         <div class="col-4">
+                                         <div class="col-4 mt-4">
                                              {{ form_row(registrationForm.tel) }}
                                          </div>
                                 </div>
                                 <div class="row">
-                                         <div class="col-4">
+                                         <div class="col-4 mt-4">
                                              {{ form_row(registrationForm.genre) }}
                                          </div>
 
-                                         <div class="col-4">
+                                         <div class="col-4 mt-4">
                                              {{ form_row(registrationForm.nationalite) }}
                                          </div>
 
-                                         <div class="col-4">
+                                         <div class="col-4 mt-4">
                                              {{ form_row(registrationForm.profession) }}
                                          </div>
                                 </div>
                                 <div class="row">
-                                         <div class="col-4">
+                                         <div class="col-4 mt-4">
                                              {{ form_row(registrationForm.tyPiece) }}
                                          </div>
 
-                                        <div class="col-4">
+                                        <div class="col-4 mt-4">
                                              {{ form_row(registrationForm.numPiece) }}
                                          </div>
 
-                                         <div class="col-4">
+                                         <div class="col-4 mt-4">
                                             {{ form_row(registrationForm.roles) }}
                                          </div>
                                 </div>
                                 <div class="row">
-                                         <div class="col-4">
+                                         <div class="col-4 mt-4">
                                             {{ form_row(registrationForm.plainPassword, {
                                                  label: 'Password'}) }}
                                          </div>
                                 </div>         
-                                          <div class="col-4 mt-4">
-                                             {{ form_row(registrationForm.agreeTerms) }}
-                                         </div>
+                                          
                                           <div class="btn btn-user mt-4 "><button type="submit" class="btn btn-primary text-center">S'enregistrer</button>
                                          </div>
                                              {{ form_end(registrationForm) }}

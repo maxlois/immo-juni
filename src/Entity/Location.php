@@ -22,20 +22,17 @@ class Location
     #[ORM\Column(length: 255, nullable: true)]
     private ? int $penalite = null;
 
-    #[ORM\Column(length: 25)]
+    #[ORM\Column(length: 255)]
     private ? int $delaisPaiem = null;
 
     #[ORM\Column(length: 255)]
-    private ? int $causionEnt = null;
+    private ? float $causionEnt = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ? float $causionSort = null;
 
     #[ORM\Column(length: 255)]
-    private ? int $causionSort = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $etatLieu = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateL = null;
+    private ?string $etatLieuFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'locations')]
     #[ORM\JoinColumn(nullable: false)]
@@ -44,6 +41,15 @@ class Location
     #[ORM\ManyToOne(inversedBy: 'locations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $locataire = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $mois = null;
+
+    #[ORM\Column]
+    private ?int $annee = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $moisAvance = null;
 
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Loyer::class)]
     private Collection $loyers;
@@ -94,50 +100,38 @@ class Location
         return $this;
     }
 
-    public function getCausionEnt(): ?int
+    public function getCausionEnt(): ?float
     {
         return $this->causionEnt;
     }
 
-    public function setCausionEnt(int $causionEnt): static
+    public function setCausionEnt(float $causionEnt): static
     {
         $this->causionEnt = $causionEnt;
 
         return $this;
     }
 
-    public function getCausionSort(): ?int
+    public function getCausionSort(): ?float
     {
         return $this->causionSort;
     }
 
-    public function setCausionSort(int $causionSort): static
+    public function setCausionSort(float $causionSort): static
     {
         $this->causionSort = $causionSort;
 
         return $this;
     }
 
-    public function getEtatLieu(): ?string
+    public function getEtatLieuFile(): ?string
     {
-        return $this->etatLieu;
+        return $this->etatLieuFile;
     }
 
-    public function setEtatLieu(string $etatLieu): static
+    public function setEtatLieu(string $etatLieuFile): static
     {
-        $this->etatLieu = $etatLieu;
-
-        return $this;
-    }
-
-    public function getDateL(): ?\DateTimeInterface
-    {
-        return $this->dateL;
-    }
-
-    public function setDateL(\DateTimeInterface $dateL): static
-    {
-        $this->dateL = $dateL;
+        $this->etatLieuFile = $etatLieuFile;
 
         return $this;
     }
@@ -162,6 +156,47 @@ class Location
     public function setLocataire(?User $locataire): static
     {
         $this->locataire = $locataire;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+       return $this->delaisPaiem;
+    }
+
+    public function getMois(): ?string
+    {
+        return $this->mois;
+    }
+
+    public function setMois(string $mois): static
+    {
+        $this->mois = $mois;
+
+        return $this;
+    }
+
+    public function getAnnee(): ?int
+    {
+        return $this->annee;
+    }
+
+    public function setAnnee(int $annee): static
+    {
+        $this->annee = $annee;
+
+        return $this;
+    }
+
+    public function getMoisAvance(): ?string
+    {
+        return $this->moisAvance;
+    }
+
+    public function setMoisAvance(string $moisAvance): static
+    {
+        $this->moisAvance = $moisAvance;
 
         return $this;
     }
@@ -195,5 +230,7 @@ class Location
 
         return $this;
     }
+
+   
 
 }

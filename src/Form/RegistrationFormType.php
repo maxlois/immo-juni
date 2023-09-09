@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -131,7 +132,25 @@ class RegistrationFormType extends AbstractType
                 ])
 
 
-                ->add('plainPassword', PasswordType::class, [
+                ->add('plainPassword', RepeatedType::class, [
+                    'type'=> PasswordType::class,'first_options' => [
+                        'attr' => [
+                            'class' => 'form-control'
+                        ],
+                        'label' => 'Mot de passe',
+                        'label_attr' => [
+                            'class' => 'form-label'
+                        ]
+                    ],
+                    'second_options' => [
+                        'attr' => [
+                            'class' => 'form-control',
+                        ],
+                        'label' => 'Confirmé mot de passe',
+                        'label_attr' => [
+                            'class' => 'form-label  mt-4'
+                        ]
+                    ],
                     // instead of being set onto the object directly,
                     // this is read and encoded in the controller
                     'mapped' => false,
@@ -139,6 +158,7 @@ class RegistrationFormType extends AbstractType
                     'attr' => [
                         'class' => 'form-control'
                     ],
+                        
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter a password',
@@ -151,17 +171,7 @@ class RegistrationFormType extends AbstractType
                         ]),
                     ],
                     
-                ])
-
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-                'label' => "J'accepte tout"
-            ]);
+                ]);
           
                $builder->get('roles')
                ->addModelTransformer(new CallbackTransformer(function($arrayRoles){

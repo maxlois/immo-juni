@@ -6,6 +6,7 @@ use App\Entity\Propriete;
 use App\Entity\Quartier;
 use App\Entity\TypePropriete;
 use App\Entity\User;
+use App\Repository\ProprieteRepository;
 use App\Repository\QuartierRepository;
 use App\Repository\TypeProprieteRepository;
 use App\Repository\UserRepository;
@@ -16,6 +17,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Choice;
@@ -39,8 +41,8 @@ class ProprieteType extends AbstractType
             ])
             ->add('statut', ChoiceType::class,[
                 'choices' => [
-                    'Occupé' => true,
-                    'Non Occupé'=> false,
+                    'Occupée' => true,
+                    'Non Occupée'=> false,
                 ], 
                 'attr'=>[
                     'class'=>'form-control'
@@ -165,6 +167,8 @@ class ProprieteType extends AbstractType
                 'class' => User::class,
                 'query_builder' => function (UserRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('i')
+                        ->andWhere('i.roles like :role')
+                        ->setParameter('role', '%ROLE_PROPRIETAIRE%')
                         ->orderBy('i.nom ', 'ASC');
                 },
                 'attr' => [
@@ -175,11 +179,17 @@ class ProprieteType extends AbstractType
                 'class' => User::class,
                 'query_builder' => function (UserRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('i')
+                        ->andWhere('i.roles like :role1 OR i.roles like :role2')
+                        ->setParameter('role1', '%ROLE_GESTIONNAIRE%')
+                        ->setParameter('role2', '%ROLE_PROPRIETAIRE%')
                         ->orderBy('i.nom ', 'ASC');
                 },
                 'attr' => [
                     'class' => "form-control"
                 ],
+                'choice_label' => function (User $user): string {
+                    return $user->getNom() . ' '. $user->getPrenom();
+                },
                 'label' => "Gestionnaire"
             ])
             ->add('quartier',EntityType::class,[
@@ -198,6 +208,19 @@ class ProprieteType extends AbstractType
                     return $quartier->getVille()->getnomV();}
             
                 ])
+            ->add('proprietePere',EntityType::class,[
+                'class' => Propriete::class,
+                'query_builder' => function (ProprieteRepository $er): QueryBuilder {
+                    return $er->getProprietesPere() ;
+                },
+                'attr' => [
+                    'class' => "form-control"
+                ],
+
+                'choice_label' => 'nomPro',
+                'label' => 'Appartient à', 
+                'required' => false
+                ])
             ->add('typePropriete',EntityType::class,[
                 'class' => TypePropriete::class,
                 'query_builder' => function (TypeProprieteRepository $er): QueryBuilder {
@@ -213,25 +236,12 @@ class ProprieteType extends AbstractType
             
                 ])
 
-                ->add('propriete', ChoiceType::class,[
-                    'choices'=>[
-                        ''=>'',
-                         'immeuble'=>'Immeuble',
-                         'cour'=>'Cour',
-                         'villa'=>'villa',
-                    ],
-                    'attr'=>[
-                          'class'=>'form-control'
-                    ],
-                    'label'=>'Propriete',
-                    'required' => false
-                ])
-
-                ->add('nombPiece',TextType::class,[
+                ->add('nombPiece',IntegerType::class,[
                     'attr'=>[
                         'class'=>'form-control', 
+                        'min' => 1
                     ],
-                    'label'=> 'nombre de pièce' 
+                    'label'=> 'Nombre de pièces' 
                 ])
         ;
 

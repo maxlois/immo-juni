@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Form;
-
 use App\Entity\Location;
 use App\Entity\Propriete;
 use App\Entity\User;
@@ -12,7 +11,8 @@ use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,70 +21,95 @@ class LocationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $year = date('Y') ;
+        $listYears = [] ;
+
+        for($i = $year; $i > ($year-2) ; $i--){
+            $listYears[$i] = [$i] ;
+        }
+
         $builder
             ->add('dateD_location', DateType::class,[
                 'attr'=> [
                     'class'=>"form-control"
-                ],
-                    'widget' => 'choice',
-                    'input'  => 'datetime_immutable',
-                    'label' => "Date de Location"
-               
-            ])
-            ->add('penalite', TextType::class,[
-                'attr' => [
-                    'class' => "form-control"
                 ], 
-                'label' => "Penalité"
+                'label' => "Date de Location",
+                'widget' => 'single_text',
             ])
-            ->add('delaisPaiem', DateType::class,[
+            ->add('penalite', IntegerType::class,[
+                'attr' => [
+                    'class' => "form-control",
+                ], 
+                'label' => "Pénalité (%)",
+                'required' => false
+            ])
+            ->add('delaisPaiem', IntegerType::class,[
                 'attr'=> [
-                    'class'=>"form-control"
+                    'class'=>"form-control",
+                    'min'=> 1
                 ],
-                    'widget' => 'choice',
-                    'input'  => 'datetime_immutable',
-                    'label' => "Date de Location"
+                    'label' => "Délai de paiement"
                
             ])
-            ->add('causionEnt', ChoiceType::class,[
-                'choices'=>[
-                    '100000'=>'100000',
-                    '2000000'=> '2000000',
-                    '5000000'=>'5000000',
-                    '10000000'=> '10000000',
-                ],
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => "Causion d'entrée"
+
+            ->add('mois', ChoiceType::class,[
+              'attr'=>[
+                'class'=>"form-control"
+              ],
+              'label' => "Mois de départ de la location",
+              'choices' => [
+                'Janvier' => '01',
+                'Février' => '02',
+                'Mars' => '03'
+              ]
+
             ])
-            ->add('causionSort', ChoiceType::class,[
-                'choices'=>[
-                    '100000'=>'100000',
-                    '2000000'=> '2000000',
-                    '5000000'=>'5000000',
-                    '10000000'=> '10000000',
+
+            ->add('annee', ChoiceType::class, [
+                'attr'=>[
+                  'class'=>'form-control'
                 ],
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => "Causion d'entrée"
+                'label'=>'Année de la location',
+                'choices' => [
+                    2023 => 2023,
+                    2022 => 2022
+                ]
             ])
-            ->add('etatLieu', TextareaType::class, [
+
+            ->add('modePaiem', ChoiceType::class, [
+                'attr'=>[
+                  'class'=>'form-control'
+                ],
+                'mapped' => false,
+                'label'=>'Mode de paiement',
+                'choices' => [
+                    "Orange Money" => "Orange Money",
+                    "Espèces" => "Espèces",
+                ]
+            ])
+            ->add('moisAvance', IntegerType::class,[
+                'attr'=>[
+                    'class'=>'form-control',
+                    'min' => 1
+                ],
+                'label'=>"Nombre de mois d'avance",
+                'required' => true
+            ])
+            ->add('causionEnt', null ,[
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label'=>"Etat des lieus"
+                'label' => "Caution d'entrée"
+            ])
+          
+            ->add('etatLieu',FileType::class, [
+                'label' => 'Etat des lieu',
+                'mapped' => false,
+                'required' => $options['attrRequired'],
+                'attr' => [
+                    'class' => 'form-control'
+                    ]
             ] )
-            ->add('dateL', DateType::class,[
-                'attr'=> [
-                    'class'=>"form-control"
-                ],
-                    'widget' => 'choice',
-                    'input'  => 'datetime_immutable',
-                    'label' => "Date de Loyer"
-               
-            ])
             ->add('propriete', EntityType::class,[
                 'class' => Propriete::class,
                 'query_builder' => function (ProprieteRepository $er): QueryBuilder {
@@ -116,6 +141,7 @@ class LocationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Location::class,
+            'attrRequired' => true
         ]);
     }
 }

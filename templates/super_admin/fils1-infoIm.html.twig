@@ -1,0 +1,66 @@
+    {% extends "info-immeuble.html.twig" %}
+   
+    {% block body %}
+
+    <div class="appart ml-4"><h3>Les Appartements</h3></div>
+
+                                <div class="container-fluid">  
+                                    <div class="row">                                    
+                                        <div class="col-4 mt-4">
+                                          <div class="row">         
+                                                <div class="card" style="width: 18rem;">
+                                                <img src="{{ propriete.imageFile ? asset(propriete.imageFile) : asset('/images/default-propriete.jpg') }}" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"></h5>
+                                                    <hr>
+                                                <p><div class="row small"><div class="ml-2"></div></div></p>
+                                                <p><div class="row small"><div class="ml-2"></div></div></p>
+                                                <p><div class="row small"><div class="ml-2"></div></div></p>
+                                                <p><div class="row small"><div class="ml-2"></div></div></p>
+                                                <p><div class="row small"><div class="ml-2"></div></div>
+                                                 
+                                                    <p> <div class="ml-4">{% if propriete.statut == true %}
+                                                        <span class="badge badge-success">Occupé</span>
+                                                            {% else %}
+                                                        <span class="badge badge-danger">Non Occupé</span>
+                                                            {% endif %} </div></p>
+                                                    
+                                                        <a href="{{path('super_admin_propriete_edit', {id:propriete.id})}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>  
+                                                                                        
+                                                        <a href="{{path('super_admin_propriete_delete', {id:propriete.id})}}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                     <div class="col-8 mt-4">
+                                                                                                
+                                        <table class="table table-sm table-striped ml-4" style="max-width: 80% ; overflow-y: auto;">
+                                            <tr>
+                                              <th>Appartement</th>
+                                              <th></th>
+                                            </tr>
+                                            <tr>
+                                               <td>Superficie (m²)</td>
+                                               <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>longeur(m):</td>
+                                                <td></td>
+                                            </tr>
+                                                                
+                                            <tr>
+                                                <td>Nombre de pièce</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Prix de l'appartement</td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </div>   
+
+                            </div>
+                          </div>                      
+    
+    {% endblock %}
+    
